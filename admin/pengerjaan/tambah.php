@@ -111,7 +111,21 @@ include '../../templates/head.php';
                                                 <input type="text" class="form-control" id="status" name="status">
                                             </div>
                                         </div>
-                                        
+                                        <div class="form-group row">
+                                            <label for="email" class="col-sm-2 col-form-label">Karyawan</label>
+                                            <div class="col-sm-10">
+                                            <select class="form-control select2" data-placeholder="Pilih" id="id_karyawan" name="id_karyawan">
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $data1 = $koneksi->query("SELECT * FROM karyawan ORDER BY id_karyawan ASC");
+                                                    while ($dsn = $data1->fetch_array()) {
+                                                    ?>
+                                                        <option value="<?= $dsn['id_karyawan'] ?>"><?= $dsn['nama_karyawan'] ?> </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <!-- /.card-body -->
 
@@ -226,9 +240,8 @@ $e = "";
             '$id_katalog',
             '$tanggal_pesan',
             '$nama_file',
-            'Baru',
-            NULL,
-            '$id_karyawan'
+            '$status',
+            NULL
             )");
 
         if ($submit) {

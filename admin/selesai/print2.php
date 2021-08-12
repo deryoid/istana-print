@@ -2,9 +2,6 @@
 include '../../config/config.php';
 include '../../config/koneksi.php';
 
-$no = 1;
-
-$data = $koneksi->query("SELECT * FROM perusahaan  ORDER BY id_perusahaan DESC");
 
 $bln = array(
     '01' => 'Januari',
@@ -43,7 +40,7 @@ $bln = array(
     <hr size="2px" color="black">
   </b></p> -->
     <p align="center"><b>
-            <font size="5">Laporan Pemesanan</font> <br>
+            <font size="5">Laporan Perusahaan</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -59,6 +56,8 @@ $bln = array(
                                                     <th>No Whatsapp/Telp</th>
                                                     <th>Katalog Dipesan</th>
                                                     <th>Tanggal Pesananan</th>
+                                                    <th>Karyawan</th>
+                                                    <th>Status Pengambilan</th>
                                                 </tr>
                                             </thead>
                                             <?php
@@ -66,7 +65,7 @@ $bln = array(
                                             $data = $koneksi->query("SELECT * FROM pemesanan AS p
                                             LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
                                             LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan
-                                            WHERE status = 'Baru' OR status = 'NULL'");
+                                            WHERE status_pengambilan = 'Sudah Diambil'");
                                             while ($row = $data->fetch_array()) {
                                             ?>
                                                 <tbody style="background-color: azure">
@@ -77,6 +76,13 @@ $bln = array(
                                                         <td><?= $row['no_wa'] ?></td>
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
                                                         <td><?= $row['tanggal_pesan'] ?></td>
+                                                        <td><?= $row['nama_karyawan'] ?></td>
+                                                        
+                                                        <?php if ($row['status_pengambilan'] != NULL) { ?>
+                                                        <td align="center"><b><u><?= $row['status_pengambilan'];?></u></b></td>
+                                                        <?php }else{ ?>
+                                                            <td align="center"><b><u>Belum Diambil</u></b></td>
+                                                        <?php } ?>
                                                     </tr>
                                                 </tbody>
                                             <?php } ?>

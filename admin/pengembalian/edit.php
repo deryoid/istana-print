@@ -1,6 +1,9 @@
 <?php
 require '../../config/config.php';
 require '../../config/koneksi.php';
+$id   = $_GET['id'];
+$data = $koneksi->query("SELECT * FROM pengembalian WHERE id_pengembalian = '$id'");
+$row  = $data->fetch_array();
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,14 +32,13 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Proyek</h1>
+                            <h1 class="m-0 text-dark">Status Pengembalian</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Data Proyek</li>
-                                <li class="breadcrumb-item active">Proyek</li>
-                                <li class="breadcrumb-item active">Tambah Data</li>
+                                <li class="breadcrumb-item active">Pengembalian</li>
+                                <li class="breadcrumb-item active">Ubah Data</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -55,71 +57,64 @@ include '../../templates/head.php';
                                 <!-- Horizontal Form -->
                                 <div class="card card-red">
                                     <div class="card-header">
-                                        <h3 class="card-title">Proyek</h3>
+                                        <h3 class="card-title">Pengembalian</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
                                     <div class="card-body" style="background-color: white;">
 
+                                       
+                                        <div class="form-group row">
+                                            <label for="nama_pemesan" class="col-sm-2 col-form-label">Nama Cust</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" value="<?= $row['nama_pemesan']; ?>" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="nik" class="col-sm-2 col-form-label">NIK</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" value="<?= $row['nik']; ?>" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="no_wa" class="col-sm-2 col-form-label">No Whatsapp</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control"  value="<?= $row['no_wa']; ?>" readonly>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Tanggal Kembali</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" class="form-control"  value="<?= $row['tanggal_pesan']; ?>" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="email" class="col-sm-2 col-form-label">File</label>
+                                            <div class="col-sm-10">
+                                            <td><a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Status</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control select2" data-placeholder="Pilih " id="status" name="status" >
+                                                <option value="Menunggu Persetujuan" <?php if ($row['status'] == "Menunggu Persetujuan") {
+                                                            echo "selected";
+                                                            } ?>>Menunggu Persetujuan</option>
+                                                <option value="Disetujui" <?php if ($row['status'] == "Disetujui") {
+                                                                echo "selected";
+                                                            } ?>>Disetujui</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                        <div class="form-group row">
-                                            <label for="kode_proyek" class="col-sm-2 col-form-label">Kode Proyek</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="kode_proyek" name="kode_proyek">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="nama_proyek" class="col-sm-2 col-form-label">Nama Proyek</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nama_proyek" name="nama_proyek">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="id_perusahaan" class="col-sm-2 col-form-label">Perusahaan yang Menaungi</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control select2" data-placeholder="Pilih" id="id_perusahaan" name="id_perusahaan">
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $data1 = $koneksi->query("SELECT * FROM perusahaan ORDER BY id_perusahaan ASC");
-                                                    while ($dsn = $data1->fetch_array()) {
-                                                    ?>
-                                                        <option value="<?= $dsn['id_perusahaan'] ?>"><?= $dsn['nama_perusahaan'] ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class=" form-group row">
-                                            <label for="alamat_proyek" class="col-sm-2 col-form-label">Alamat Proyek</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" rows="3" name="alamat_proyek"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="estimasi" class="col-sm-2 col-form-label">Estimasi Pengerjaan</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="estimasi" name="estimasi">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="rencana_biaya" class="col-sm-2 col-form-label">Asal Anggaran</label>
-                                            <div class="col-sm-10">
-                                            <select class="form-control select2" data-placeholder="Pilih" id="id_am" name="id_am">
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $data1 = $koneksi->query("SELECT * FROM anggaran_masuk ORDER BY id_am ASC");
-                                                    while ($dsn = $data1->fetch_array()) {
-                                                    ?>
-                                                        <option value="<?= $dsn['id_am'] ?>"><?= $dsn['asal_anggaran'] ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                     <!-- /.card-body -->
 
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/proyek/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
-                                        <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
+                                        <a href="<?= base_url('admin/pengembalian/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Ubah</i></button>
                                     </div>
                                     <!-- /.card-footer -->
 
@@ -153,39 +148,21 @@ include '../../templates/head.php';
 
     <?php
     if (isset($_POST['submit'])) {
-        $kode_proyek        = $_POST['kode_proyek'];
-        $nama_proyek        = $_POST['nama_proyek'];
-        $id_perusahaan      = $_POST['id_perusahaan'];
-        $alamat_proyek      = $_POST['alamat_proyek'];
-        $estimasi           = $_POST['estimasi'];
-        $id_am           = $_POST['id_am'];
+        $status              = $_POST['status'];
 
-        $submit = $koneksi->query("INSERT INTO proyek VALUES (
-            NULL,
-            '$kode_proyek',
-            '$nama_proyek',
-            '$id_perusahaan',
-            '$alamat_proyek',
-            '$estimasi',
-            'Menunggu',
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            '$id_am',
-            NULL,
-            NULL,
-            NULL
-            )");
+        
+        $submit = $koneksi->query("UPDATE pengembalian SET  
+                            status = '$status'
+                            WHERE 
+                            id_pengembalian = '$id'");
 
         if ($submit) {
-
-            $_SESSION['pesan'] = "Data Proyek Ditambahkan";
-            echo "<script>window.location.replace('../proyek/');</script>";
+            $_SESSION['pesan'] = "Data pengembalian Ditambahkan";
+            echo "<script>window.location.replace('../pengembalian/');</script>";
         }
     }
-    ?>
 
+    ?>
 
 </body>
 

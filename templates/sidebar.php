@@ -87,8 +87,33 @@
               </p>
             </a>
           </li>
-         
+          <div class="dropdown-divider"></div>
+          <li class="nav-item">
+            <a href="<?= base_url('admin/selesai/') ?>" class="nav-link">
+              <i class="nav-icon fas fa-user-check"></i>
+              <p>
+                Selesai & Pengambilan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('admin/pengembalian/') ?>" class="nav-link">
+              <i class="nav-icon fas fa-undo-alt"></i>
+              <p>
+                Pengembalian
+              </p>
+            </a>
+          </li>
 
+          <div class="dropdown-divider"></div>
+          <li class="nav-item">
+            <a href="<?= base_url('admin/printrekap') ?>"  target="blank" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                Rekap Data Keseluruhan
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

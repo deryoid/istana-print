@@ -5,7 +5,7 @@ require '../../config/koneksi.php';
 <!DOCTYPE html>
 <html>
 <?php
-include '../../templates/head.php';
+include '../../templates_public/head.php';
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -13,13 +13,13 @@ include '../../templates/head.php';
 
         <!-- Navbar -->
         <?php
-        include '../../templates/navbar.php';
+        include '../../templates_public/navbar.php';
         ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <?php
-        include '../../templates/sidebar.php';
+        include '../../templates_public/sidebar.php';
         ?>
 
         <!-- Content Wrapper. Contains page content -->
@@ -34,6 +34,7 @@ include '../../templates/head.php';
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Data</li>
                                 <li class="breadcrumb-item active">Pemesanan</li>
                                 <li class="breadcrumb-item active">Tambah Data</li>
                             </ol>
@@ -52,7 +53,7 @@ include '../../templates/head.php';
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- Horizontal Form -->
-                                <div class="card card-red">
+                                <div class="card card-danger">
                                     <div class="card-header">
                                         <h3 class="card-title">Pemesanan</h3>
                                     </div>
@@ -60,8 +61,7 @@ include '../../templates/head.php';
                                     <!-- form start -->
                                     <div class="card-body" style="background-color: white;">
 
-
-                                        <div class="form-group row">
+                                    <div class="form-group row">
                                             <label for="nama_pemesan" class="col-sm-2 col-form-label">Nama Cust</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" id="nama_pemesan" name="nama_pemesan">
@@ -105,18 +105,13 @@ include '../../templates/head.php';
                                                 <input type="file" class="form-control" id="file" name="file">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Status</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="status" name="status">
-                                            </div>
-                                        </div>
-                                        
+
+
                                     </div>
                                     <!-- /.card-body -->
 
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/pemesanan/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <a href="<?= base_url('index') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
                                         <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
                                     </div>
                                     <!-- /.card-footer -->
@@ -135,7 +130,7 @@ include '../../templates/head.php';
         </div>
         <!-- /.content-wrapper -->
 
-        <?php include_once "../../templates/footer.php"; ?>
+        <?php include_once "../../templates_public/footer.php"; ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -146,18 +141,14 @@ include '../../templates/head.php';
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <?php include_once "../../templates/script.php"; ?>
-
-
-    <?php
+    <?php include_once "../../templates_public/script.php"; ?>
+<?php
     if (isset($_POST['submit'])) {
         $nama_pemesan        = $_POST['nama_pemesan'];
         $nik                 = $_POST['nik'];
         $no_wa               = $_POST['no_wa'];
         $id_katalog          = $_POST['id_katalog'];
         $tanggal_pesan       = $_POST['tanggal_pesan'];
-        $status              = $_POST['status'];
-        $id_karyawan         = $_POST['id_karyawan'];
 
 //upload file mhs
 $e = "";
@@ -228,15 +219,15 @@ $e = "";
             '$nama_file',
             'Baru',
             NULL,
-            '$id_karyawan'
+            NULL
             )");
 
         if ($submit) {
-
-            $_SESSION['pesan'] = "Data Pemesanan Ditambahkan";
-            echo "<script>window.location.replace('../pemesanan/');</script>";
+            $_SESSION['pesan'] = "Pemesanan Sudah Diajukan Silahkan Datang KeIstana Print";
+            echo "<script>window.location.replace('../../index');</script>";
         }
     }
+
     ?>
 
 

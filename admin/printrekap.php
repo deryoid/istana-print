@@ -2,9 +2,7 @@
 include '../config/config.php';
 include '../config/koneksi.php';
 
-$no = 1;
-
-$data = $koneksi->query("SELECT * FROM ktm  ORDER BY id_ktm DESC");
+$no =1;
 
 $bln = array(
     '01' => 'Januari',
@@ -37,7 +35,7 @@ $bln = array(
 <body>
 
     <p align="center"><b>
-            <font size="5">Laporan Rekap Keseluruhan Proyek</font> <br>
+            <font size="5">Laporan Rekap Keseluruhan Data</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -59,10 +57,10 @@ $bln = array(
                                 <td align="center"><?= $no++ ?></td>
                                 <td>                    
                                     <?php 
-                                $dataiumk = $koneksi->query("SELECT * FROM perusahaan ORDER BY id_perusahaan DESC");
+                                $dataiumk = $koneksi->query("SELECT * FROM katalog ORDER BY id_katalog DESC");
                                 $jumlah = mysqli_num_rows($dataiumk);
                                 ?>
-                                <h3>Perusahaan Terdaftar</h3>
+                                <h3>Katalog Terdaftar</h3>
                                 </td>
                                 <td align="center"><h3><?= $jumlah; ?></h3></td>
                             </tr>
@@ -70,13 +68,11 @@ $bln = array(
                                 <td align="center"><?= $no++ ?></td>
                                 <td>                    
                                 <?php 
-                                $dataahli_waris = $koneksi->query("SELECT * FROM proyek as p 
-                                LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan
-                                LEFT JOIN anggaran_masuk as am ON p.id_am = am.id_am 
-                                ORDER BY p.id_perusahaan DESC");
+                                $dataahli_waris = $koneksi->query("SELECT * FROM karyawan
+                                ORDER BY id_karyawan DESC");
                                 $jumlah1 = mysqli_num_rows($dataahli_waris);
                                 ?>
-                                <h3>Proyek</h3>
+                                <h3>Karyawan</h3>
                                 </td>
                                 <td align="center"><h3><?= $jumlah1; ?></h3></td>
                             </tr>
@@ -84,10 +80,12 @@ $bln = array(
                                 <td align="center"><?= $no++ ?></td>
                                 <td>                    
                                 <?php 
-                                $datakematian = $koneksi->query("SELECT * FROM proyek as p LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan WHERE p.status_proyek = 'Menunggu'");
+                                $datakematian = $koneksi->query("SELECT * FROM pemesanan AS p
+                                LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
+                                LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan");
                                 $jumlah2 = mysqli_num_rows($datakematian);
                                 ?>
-                                <h3>Proyek Menunggu Ditanggapi</h3>
+                                <h3>Data Pemesanan</h3>
                                 </td>
                                 <td align="center"><h3><?= $jumlah2; ?></h3></td>
                             </tr>
@@ -95,46 +93,14 @@ $bln = array(
                                 <td align="center"><?= $no++ ?></td>
                                 <td>                    
                                 <?php 
-                                 $dataktm = $koneksi->query("SELECT * FROM proyek as p LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan WHERE p.status_proyek = 'Di Tanggapi'");
+                                 $dataktm = $koneksi->query("SELECT * FROM pengembalian ORDER BY id_pengembalian");
                                  $jumlah3 = mysqli_num_rows($dataktm);
                                 ?>
-                                <h3>Proyek Ditanggapi</h3>
+                                <h3>Barang yang Dikembalikan</h3>
                                 </td>
                                 <td align="center"><h3><?= $jumlah3; ?></h3></td>
                             </tr>
-                            <tr>
-                                <td align="center"><?= $no++ ?></td>
-                                <td>                    
-                                <?php 
-                                  $datasurat_nikah = $koneksi->query("SELECT * FROM proyek as p LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan WHERE p.status_proyek = 'Di Tunda'");
-                                  $jumlah4 = mysqli_num_rows($datasurat_nikah);
-                                ?>
-                                <h3>Proyek Ditunda</h3>
-                                </td>
-                                <td align="center"><h3><?= $jumlah4; ?></h3></td>
-                            </tr>
-                            <tr>
-                                <td align="center"><?= $no++ ?></td>
-                                <td>                    
-                                <?php 
-                                    $datai_keramaian = $koneksi->query("SELECT * FROM proyek as p LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan WHERE p.status_proyek = 'Di Tanggapi' AND p.status_jalan = 'Di Jalankan'");
-                                    $jumlah5 = mysqli_num_rows($datai_keramaian);
-                                ?>
-                                <h3>Proyek Berjalan</h3>
-                                </td>
-                                <td align="center"><h3><?= $jumlah5; ?></h3></td>
-                            </tr>
-                            <tr>
-                                <td align="center"><?= $no++ ?></td>
-                                <td>                    
-                                <?php 
-                                    $datai_keramaian = $koneksi->query("SELECT * FROM proyek as p LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan WHERE p.status_proyek = 'Di Tanggapi' AND p.progres = '100'");
-                                    $jumlah6 = mysqli_num_rows($datai_keramaian);
-                                ?>
-                                <h3>Proyek Telah Selesai</h3>
-                                </td>
-                                <td align="center"><h3><?= $jumlah6; ?></h3></td>
-                            </tr>
+                           
                     </tbody>
 
                 </table>
@@ -151,10 +117,10 @@ $bln = array(
     
     <div style="text-align: center; display: inline-block; float: right;">
   <h5>
-    Tapin, <?php echo tgl_indo(date('Y-m-d')); ?><br>
+    Banjarmasin <?php echo tgl_indo(date('Y-m-d')); ?><br>
     
     <br><br><br><br>
-    Pimpinan
+    Istana Print
   </h5>
 </div>
 

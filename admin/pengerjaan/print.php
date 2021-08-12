@@ -2,10 +2,6 @@
 include '../../config/config.php';
 include '../../config/koneksi.php';
 
-$no = 1;
-
-$data = $koneksi->query("SELECT * FROM perusahaan  ORDER BY id_perusahaan DESC");
-
 $bln = array(
     '01' => 'Januari',
     '02' => 'Februari',
@@ -43,7 +39,7 @@ $bln = array(
     <hr size="2px" color="black">
   </b></p> -->
     <p align="center"><b>
-            <font size="5">Laporan Pemesanan</font> <br>
+            <font size="5">Laporan Pengerjaan</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -59,6 +55,8 @@ $bln = array(
                                                     <th>No Whatsapp/Telp</th>
                                                     <th>Katalog Dipesan</th>
                                                     <th>Tanggal Pesananan</th>
+                                                    <th>Karyawan</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <?php
@@ -66,7 +64,7 @@ $bln = array(
                                             $data = $koneksi->query("SELECT * FROM pemesanan AS p
                                             LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
                                             LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan
-                                            WHERE status = 'Baru' OR status = 'NULL'");
+                                            WHERE status != 'Baru' ORDER BY p.id_pemesanan DESC");
                                             while ($row = $data->fetch_array()) {
                                             ?>
                                                 <tbody style="background-color: azure">
@@ -77,6 +75,8 @@ $bln = array(
                                                         <td><?= $row['no_wa'] ?></td>
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
                                                         <td><?= $row['tanggal_pesan'] ?></td>
+                                                        <td><?= $row['nama_karyawan'] ?></td>
+                                                        <td><?= $row['status'] ?></td>
                                                     </tr>
                                                 </tbody>
                                             <?php } ?>

@@ -30,12 +30,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Daftar Pemesanan</h1>
+                            <h1 class="m-0 text-dark">Daftar Pengerjaan Selesai</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Daftar Pemesanan</li>
+                                <li class="breadcrumb-item active">Daftar Pengerjaan Selesai</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -50,8 +50,8 @@ include '../../templates/head.php';
                         <div class="col-12">
                             <div class="card card-danger card-outline">
                                 <div class="card-header">
-                                    <a href="tambah" class="btn bg-blue"><i class="fa fa-plus-circle"> Tambah Data</i></a>
-                                    <a href="print" target="blank" class="btn bg-yellow"><i class="fa fa-print"> Cetak</i></a>
+                                    <a href="print" target="blank" class="btn bg-yellow"><i class="fa fa-print"> Cetak Pekerjaan Selesai</i></a>
+                                    <a href="print2" target="blank" class="btn bg-yellow"><i class="fa fa-print"> Cetak Barang yang Sudah Diambil</i></a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -71,14 +71,15 @@ include '../../templates/head.php';
                                             <thead class="bg-red">
                                                 <tr align="center">
                                                     <th>No</th>
+                                                    <th>Nota</th>
                                                     <th>Nama Cust</th>
                                                     <th>NIK Cust</th>
                                                     <th>No Whatsapp/Telp</th>
                                                     <th>Katalog Dipesan</th>
                                                     <th>Tanggal Pesananan</th>
-                                                    <!-- <th>Karyawan</th> -->
-                                                    <th>File</th>
+                                                    <th>Karyawan</th>
                                                     <th>Status</th>
+                                                    <th>Status Pengambilan</th>
                                                     <th>Opsi</th>
                                                 </tr>
                                             </thead>
@@ -87,24 +88,28 @@ include '../../templates/head.php';
                                             $data = $koneksi->query("SELECT * FROM pemesanan AS p
                                             LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
                                             LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan
-                                            WHERE status = 'Baru' OR status = 'NULL'");
+                                            WHERE status = 'Selesai'");
                                             while ($row = $data->fetch_array()) {
                                             ?>
                                                 <tbody style="background-color: azure">
                                                     <tr>
                                                         <td align="center"><?= $no++ ?></td>
+                                                        <td align="center"><a href="printdetail?id=<?= $row['id_pemesanan'] ?>" target="blank" class="btn btn-info btn-sm" title="Nota"><i class="fa fa-file-invoice"></i>Nota</a></td>
                                                         <td><?= $row['nama_pemesan'] ?></td>
                                                         <td><?= $row['nik'] ?></td>
                                                         <td><?= $row['no_wa'] ?></td>
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
                                                         <td><?= $row['tanggal_pesan'] ?></td>
-                                                        <!-- <td><?= $row['nama_karyawan'] ?></td> -->
-                                                        <td><a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
+                                                        <td><?= $row['nama_karyawan'] ?></td>
                                                         <td align="center"><b><u><?= $row['status'] ?></u></b></td>
+                                                        
+                                                        <?php if ($row['status_pengambilan'] != NULL) { ?>
+                                                        <td align="center"><b><u><?= $row['status_pengambilan'];?></u></b></td>
+                                                        <?php }else{ ?>
+                                                            <td align="center"><b><u>Belum Diambil</u></b></td>
+                                                        <?php } ?>
                                                         <td align="center">
-                                                            <!-- <a href="printdetail?id=<?= $row['id_perusahaan'] ?>" class="btn btn-info btn-sm" target="blank" title="Print Detail"><i class="fa fa-print"></i></a> -->
-                                                            <a href="edit?id=<?= $row['id_pemesanan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
-                                                            <a href="hapus?id=<?= $row['id_pemesanan'] ?>" class="btn btn-danger btn-sm alert-hapus" title="Hapus"><i class="fa fa-trash"></i></a>
+                                                            <a href="edit?id=<?= $row['id_pemesanan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i> Pilih Status</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>

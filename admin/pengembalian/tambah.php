@@ -29,12 +29,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Pemesanan</h1>
+                            <h1 class="m-0 text-dark">Pengembalian</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Pemesanan</li>
+                                <li class="breadcrumb-item active">Pengembalian</li>
                                 <li class="breadcrumb-item active">Tambah Data</li>
                             </ol>
                         </div><!-- /.col -->
@@ -54,7 +54,7 @@ include '../../templates/head.php';
                                 <!-- Horizontal Form -->
                                 <div class="card card-red">
                                     <div class="card-header">
-                                        <h3 class="card-title">Pemesanan</h3>
+                                        <h3 class="card-title">Pengembalian</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
@@ -80,35 +80,15 @@ include '../../templates/head.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="nama_pimpinan" class="col-sm-2 col-form-label"> Katalog</label>
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Tanggal Pengembalian</label>
                                             <div class="col-sm-10">
-                                            <select class="form-control select2" data-placeholder="Pilih" id="id_katalog" name="id_katalog">
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $data1 = $koneksi->query("SELECT * FROM katalog ORDER BY id_katalog ASC");
-                                                    while ($dsn = $data1->fetch_array()) {
-                                                    ?>
-                                                        <option value="<?= $dsn['id_katalog'] ?>"><?= $dsn['nama_katalog'] ?> - Ukuran : <?= $dsn['ukuran'] ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                <input type="date" class="form-control" id="" name="tanggal_kembali" value="<?php echo date("Y-m-d") ; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Tanggal Pemesanan</label>
-                                            <div class="col-sm-10">
-                                                <input type="date" class="form-control" id="" name="tanggal_pesan" value="<?php echo date("Y-m-d") ; ?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="email" class="col-sm-2 col-form-label">File</label>
+                                            <label for="email" class="col-sm-2 col-form-label">Bukti Pengembalian</label>
                                             <div class="col-sm-10">
                                                 <input type="file" class="form-control" id="file" name="file">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Status</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="status" name="status">
                                             </div>
                                         </div>
                                         
@@ -116,7 +96,7 @@ include '../../templates/head.php';
                                     <!-- /.card-body -->
 
                                     <div class="card-footer" style="background-color: white;">
-                                        <a href="<?= base_url('admin/pemesanan/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
+                                        <a href="<?= base_url('admin/pengembalian/') ?>" class="btn bg-gradient-secondary float-right"><i class="fa fa-arrow-left"> Batal</i></a>
                                         <button type="submit" name="submit" class="btn bg-gradient-primary float-right mr-2"><i class="fa fa-save"> Simpan</i></button>
                                     </div>
                                     <!-- /.card-footer -->
@@ -154,10 +134,8 @@ include '../../templates/head.php';
         $nama_pemesan        = $_POST['nama_pemesan'];
         $nik                 = $_POST['nik'];
         $no_wa               = $_POST['no_wa'];
-        $id_katalog          = $_POST['id_katalog'];
-        $tanggal_pesan       = $_POST['tanggal_pesan'];
+        $tanggal_kembali       = $_POST['tanggal_kembali'];
         $status              = $_POST['status'];
-        $id_karyawan         = $_POST['id_karyawan'];
 
 //upload file mhs
 $e = "";
@@ -218,23 +196,20 @@ $e = "";
         }
 
 
-        $submit = $koneksi->query("INSERT INTO pemesanan VALUES (
+        $submit = $koneksi->query("INSERT INTO pengembalian VALUES (
             NULL,
             '$nama_pemesan',
             '$nik',
             '$no_wa',
-            '$id_katalog',
-            '$tanggal_pesan',
+            '$tanggal_kembali',
             '$nama_file',
-            'Baru',
-            NULL,
-            '$id_karyawan'
+            'Menunggu Persetujuan'
             )");
 
         if ($submit) {
 
-            $_SESSION['pesan'] = "Data Pemesanan Ditambahkan";
-            echo "<script>window.location.replace('../pemesanan/');</script>";
+            $_SESSION['pesan'] = "Data pengembalian Ditambahkan";
+            echo "<script>window.location.replace('../pengembalian/');</script>";
         }
     }
     ?>

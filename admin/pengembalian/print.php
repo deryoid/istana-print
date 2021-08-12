@@ -4,10 +4,7 @@ include '../../config/koneksi.php';
 
 $no = 1;
 
-$data = $koneksi->query("SELECT * FROM proyek as p 
-LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan
-LEFT JOIN anggaran_masuk as am ON p.id_am = am.id_am 
-ORDER BY p.id_perusahaan DESC");
+$data = $koneksi->query("SELECT * FROM perusahaan  ORDER BY id_perusahaan DESC");
 
 $bln = array(
     '01' => 'Januari',
@@ -46,7 +43,7 @@ $bln = array(
     <hr size="2px" color="black">
   </b></p> -->
     <p align="center"><b>
-            <font size="5">Laporan Proyek</font> <br>
+            <font size="5">Laporan Barang yang Dikembalikan</font> <br>
             <hr size="2px" color="black">
         </b></p>
 
@@ -55,29 +52,31 @@ $bln = array(
             <div class="card-box table-responsive">
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kode Proyek</th>
-                            <th>Nama Proyek</th>
-                            <th>Perusahaan</th>
-                            <th>Lokasi Pengerjaan</th>
-                            <th>Estimasi Pengerjaan</th>
-                            <th>Biaya Pengerjaan</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_array($data)) { ?>
-                            <tr>
-                                <td align="center"><?= $no++ ?></td>
-                                <td><?= $row['kode_proyek'] ?></td>
-                                <td><?= $row['nama_proyek'] ?></td>
-                                <td><?= $row['nama_perusahaan'] ?></td>
-                                <td><?= $row['alamat_proyek'] ?></td>
-                                <td><?= $row['estimasi'] ?></td>
-                                <td><?= $row['asal_anggaran'] ?></td>
-                            </tr>
-                        <?php } ?>
+                    <tr align="center">
+                                                    <th>No</th>
+                                                    <th>Nama Cust</th>
+                                                    <th>NIK Cust</th>
+                                                    <th>No Whatsapp/Telp</th>
+                                                    <th>Tanggal Kembali</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <?php
+                                            $no = 1;
+                                            $data = $koneksi->query("SELECT * FROM pengembalian ORDER BY id_pengembalian DESC");
+                                            while ($row = $data->fetch_array()) {
+                                            ?>
+                                                <tbody style="background-color: azure">
+                                                    <tr>
+                                                        <td align="center"><?= $no++ ?></td>
+                                                        <td><?= $row['nama_pemesan'] ?></td>
+                                                        <td><?= $row['nik'] ?></td>
+                                                        <td><?= $row['no_wa'] ?></td>
+                                                        <td><?= $row['tanggal_kembali'] ?></td>
+                                                        <td align="center"><b><u><?= $row['status'] ?></u></b></td>
+                                                    </tr>
+                                                </tbody>
+                                            <?php } ?>
                     </tbody>
 
                 </table>
@@ -89,17 +88,17 @@ $bln = array(
 
     </div>
 
-
     </div>
     <div style="text-align: center; display: inline-block; float: right;">
   <h5>
-    Tapin, <?php echo tgl_indo(date('Y-m-d')); ?><br>
+    Banjarmasin <?php echo tgl_indo(date('Y-m-d')); ?><br>
     
     <br><br><br><br>
-    Kepala Dinas
+    Istana Print
   </h5>
 
 </div>
+
 </body>
 
 </html>

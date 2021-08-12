@@ -123,22 +123,6 @@ include '../../templates/head.php';
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="email" class="col-sm-2 col-form-label">Karyawan</label>
-                                            <div class="col-sm-10">
-                                            <select class="form-control select2" data-placeholder="Pilih" id="id_karyawan" name="id_karyawan">
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $data1 = $koneksi->query("SELECT * FROM karyawan ORDER BY id_karyawan ASC");
-                                                    while ($dsn = $data1->fetch_array()) {
-                                                    ?>
-                                                        <option value="<?= $dsn['id_karyawan'] ?>" <?php if ($dsn['id_karyawan'] == $row['id_karyawan']) {
-                                                                                                            echo "selected";
-                                                                                                        } ?>><?= $dsn['nama_karyawan'] ?> </option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
 
                                     </div>
                                     <!-- /.card-body -->
@@ -185,7 +169,6 @@ include '../../templates/head.php';
         $id_katalog          = $_POST['id_katalog'];
         $tanggal_pesan       = $_POST['tanggal_pesan'];
         $status              = $_POST['status'];
-        $id_karyawan         = $_POST['id_karyawan'];
 
         
 //upload file mhs
@@ -259,8 +242,7 @@ $e = "";
                             id_katalog = '$id_katalog',
                             tanggal_pesan = '$tanggal_pesan',
                             file = '$nama_file',
-                            status = '$status',
-                            id_karyawan = '$id_karyawan'
+                            status = '$status'
                             WHERE 
                             id_pemesanan = '$id'");
 

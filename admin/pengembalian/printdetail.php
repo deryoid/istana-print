@@ -3,11 +3,7 @@ include '../../config/config.php';
 include '../../config/koneksi.php';
 
 $id   = $_GET['id'];
-$data = $koneksi->query("SELECT * FROM proyek as p 
-LEFT JOIN perusahaan as pr ON p.id_perusahaan = pr.id_perusahaan
-LEFT JOIN anggaran_masuk as am ON p.id_am = am.id_am 
-WHERE p.id_proyek = '$id' ");
-
+$data = $koneksi->query("SELECT * FROM perusahaan WHERE id_perusahaan = '$id'");
 $row  = $data->fetch_array();
 
 $bln = array(
@@ -34,20 +30,21 @@ $bln = array(
 <html>
 
 <head>
-    <title>Report</title>
+    <title>ReportL</title>
 </head>
 
 <body>
-<!-- <img src="<?=base_url('assets/dist/img/logo_pln.jpg')?>" align="left" width="90" height="90">
+<img src="<?=base_url('assets/dist/img/logo_pln.jpg')?>" align="left" width="90" height="90">
   <p align="center"><b>
     <font size="7">PT. GERAI INDAH MARABAHAN</font> <br> <br> <br> <br>
     <hr size="2px" color="black">
     <center><font size="2">Alamat : Jl. AES Nasution, Marabahan Kota, Marabahan Kabupaten Barito Kuala Kalimantan Selatan </font></center>
     <hr size="2px" color="black">
-  </b></p> -->
+  </b></p>
+    <!-- Kop Here ! -->
     <h3>
         <center><br>
-            Data Proyek<br>
+            Data Perusahaan<br>
         </center>
     </h3><br><br>
     <div class="row">
@@ -59,39 +56,45 @@ $bln = array(
                             <b>
                                 <tr>
                                     <p>
-                                        <th width="40%">Kode Proyek</th>
-                                        <th><?php echo $row['kode_proyek'] ?></th>
+                                        <th width="40%">Nama Perusahaan </th>
+                                        <th><?php echo $row['nama_perusahaan'] ?></th>
                                     </p>
                                 </tr>
 
                                 <tr>
                                     <p>
-                                        <th>Nama Proyek</th>
-                                        <th><?php echo $row['nama_proyek'] ?></th>
+                                        <th>Bidang Perusahaan </th>
+                                        <th><?php echo $row['bidang_perusahaan'] ?></th>
                                     </p>
                                 </tr>
                                 <tr>
                                     <p>
-                                        <th>Perusahaan</th>
-                                        <th><?php echo $row['nama_perusahaan'] ?></th>
+                                        <th>Alamat</th>
+                                        <th><?php echo $row['alamat_perusahaan'] ?></th>
                                     </p>
                                 </tr>
                                 <tr>
                                     <p>
-                                        <th>Lokasi Pengerjaan</th>
-                                        <th><?php echo $row['alamat_proyek'] ?></th>
+                                        <th>Tahun Berdiri </th>
+                                        <th><?php echo $row['tahun_berdiri'] ?></th>
                                     </p>
                                 </tr>
                                 <tr>
                                     <p>
-                                        <th>Estimasi Pengerjaan</th>
-                                        <th><?php echo $row['estimasi'] ?></th>
+                                        <th>Pimpinan/Kepala </th>
+                                        <th><?php echo $row['nama_pimpinan'] ?></th>
                                     </p>
                                 </tr>
                                 <tr>
                                     <p>
-                                        <th>Status</th>
-                                        <th><?php echo $row['status_proyek'] ?></th>
+                                        <th>No. Telp Perusahaan </th>
+                                        <th><?php echo $row['no_telp'] ?></th>
+                                    </p>
+                                </tr>
+                                <tr>
+                                    <p>
+                                        <th>Email Perusahaan </th>
+                                        <th><?php echo $row['email'] ?></th>
                                     </p>
                                 </tr>
 
@@ -144,14 +147,13 @@ $bln = array(
 </div>
     <div style="text-align: center; display: inline-block; float: right;">
   <h5>
-    Tapin, <?php echo tgl_indo(date('Y-m-d')); ?><br>
+    Banjarmasin <?php echo tgl_indo(date('Y-m-d')); ?><br>
     
     <br><br><br><br>
-    Kepala Dinas
+    Pimpinan
   </h5>
 
 </div>
-
 </body>
 
 </html>
