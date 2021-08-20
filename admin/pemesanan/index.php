@@ -71,36 +71,31 @@ include '../../templates/head.php';
                                             <thead class="bg-red">
                                                 <tr align="center">
                                                     <th>No</th>
-                                                    <th>Nama Cust</th>
-                                                    <th>NIK Cust</th>
-                                                    <th>No Whatsapp/Telp</th>
-                                                    <th>Katalog Dipesan</th>
                                                     <th>Tanggal Pesananan</th>
-                                                    <!-- <th>Karyawan</th> -->
+                                                    <th>Nama Pelanggan</th>
+                                                    <th>Katalog Dipesan</th>
+                                                    <th>Tipe Pembayaran</th>
                                                     <th>File</th>
-                                                    <th>Status</th>
+                                                    <th>Status Bayar</th>
                                                     <th>Opsi</th>
                                                 </tr>
                                             </thead>
                                             <?php
                                             $no = 1;
                                             $data = $koneksi->query("SELECT * FROM pemesanan AS p
-                                            LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
-                                            LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan
-                                            WHERE status = 'Baru' OR status = 'NULL'");
+                                            LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
+                                            LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog ORDER BY id_pemesanan DESC");
                                             while ($row = $data->fetch_array()) {
                                             ?>
                                                 <tbody style="background-color: azure">
                                                     <tr>
                                                         <td align="center"><?= $no++ ?></td>
-                                                        <td><?= $row['nama_pemesan'] ?></td>
-                                                        <td><?= $row['nik'] ?></td>
-                                                        <td><?= $row['no_wa'] ?></td>
+                                                        <td><?= tgl_indo($row['tanggal_pesan']) ?></td>
+                                                        <td><?= $row['nama_pelanggan'] ?></td>
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
-                                                        <td><?= $row['tanggal_pesan'] ?></td>
-                                                        <!-- <td><?= $row['nama_karyawan'] ?></td> -->
                                                         <td><a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
-                                                        <td align="center"><b><u><?= $row['status'] ?></u></b></td>
+                                                        <td align="center"><?= $row['tipe_pembayaran'] ?></td>
+                                                        <td align="center"><?= $row['status_bayar'] ?></td>
                                                         <td align="center">
                                                             <!-- <a href="printdetail?id=<?= $row['id_perusahaan'] ?>" class="btn btn-info btn-sm" target="blank" title="Print Detail"><i class="fa fa-print"></i></a> -->
                                                             <a href="edit?id=<?= $row['id_pemesanan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>

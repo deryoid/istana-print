@@ -62,21 +62,23 @@ include '../../templates/head.php';
 
 
                                         <div class="form-group row">
-                                            <label for="nama_pemesan" class="col-sm-2 col-form-label">Nama Cust</label>
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Tanggal Pemesanan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nama_pemesan" name="nama_pemesan">
+                                                <input type="date" class="form-control" id="" name="tanggal_pesan" value="<?php echo date("Y-m-d") ; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="nik" class="col-sm-2 col-form-label">NIK</label>
+                                            <label class="col-sm-2 col-form-label"> Nama Pelanggan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nik" name="nik">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="no_wa" class="col-sm-2 col-form-label">No Whatsapp</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="no_wa" name="no_wa">
+                                            <select class="form-control select2" data-placeholder="Pilih" name="id_pelanggan" data-placeholder="Pilih Nama Pelanggan">
+                                                <option value=""></option>
+                                                    <?php
+                                                    $data1 = $koneksi->query("SELECT * FROM pelanggan ORDER BY id_pelanggan ASC");
+                                                    while ($dsn = $data1->fetch_array()) {
+                                                    ?>
+                                                        <option value="<?= $dsn['id_pelanggan'] ?>"><?= $dsn['nama_pelanggan'] ?></option>
+                                                    <?php } ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -94,21 +96,29 @@ include '../../templates/head.php';
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Tanggal Pemesanan</label>
+                                            <label class="col-sm-2 col-form-label">File</label>
                                             <div class="col-sm-10">
-                                                <input type="date" class="form-control" id="" name="tanggal_pesan" value="<?php echo date("Y-m-d") ; ?>">
+                                                <input type="file" class="form-control" id="file" name="file" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="email" class="col-sm-2 col-form-label">File</label>
+                                            <label class="col-sm-2 col-form-label">Tipe Pembayaran</label>
                                             <div class="col-sm-10">
-                                                <input type="file" class="form-control" id="file" name="file">
+                                                <select name="tipe_pembayaran" class="form-control" required>
+                                                    <option value="" selected disabled>--Pilih--</option>
+                                                    <option value="Cash">Cash</option>
+                                                    <option value="Transfer">Transfer</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Status</label>
+                                            <label class="col-sm-2 col-form-label">Status Bayar</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="status" name="status">
+                                                <select name="status_bayar" class="form-control" required>
+                                                    <option value="" selected disabled>--Pilih--</option>
+                                                    <option value="Sudah Dibayar">Sudah Dibayar</option>
+                                                    <option value="Belum Dibayar">Belum Dibayar</option>
+                                                </select>
                                             </div>
                                         </div>
                                         
@@ -151,17 +161,13 @@ include '../../templates/head.php';
 
     <?php
     if (isset($_POST['submit'])) {
-        $nama_pemesan        = $_POST['nama_pemesan'];
-        $nik                 = $_POST['nik'];
-        $no_wa               = $_POST['no_wa'];
-        $id_katalog          = $_POST['id_katalog'];
         $tanggal_pesan       = $_POST['tanggal_pesan'];
-        $status              = $_POST['status'];
-        $id_karyawan         = $_POST['id_karyawan'];
+        $id_pelanggan        = $_POST['id_pelanggan'];
+        $id_katalog          = $_POST['id_katalog'];
+        $tipe_pembayaran     = $_POST['tipe_pembayaran'];
+        $status_bayar        = $_POST['status_bayar'];
 
 //upload file mhs
-$e = "";
-// CEK APAKAH file DIGANTI
         if (!empty($_FILES['file']['name'])) {
             // UPLOAD file PEMOHON
             $file      = $_FILES['file']['name'];
@@ -212,23 +218,17 @@ $e = "";
             } ,2000);   
             </script>";
             }
-        } else {    
-            $nama_file = $data['file']; 
-            $e .= "Upload Success!"; 
         }
 
 
         $submit = $koneksi->query("INSERT INTO pemesanan VALUES (
             NULL,
-            '$nama_pemesan',
-            '$nik',
-            '$no_wa',
-            '$id_katalog',
             '$tanggal_pesan',
+            '$id_pelanggan',
+            '$id_katalog',
             '$nama_file',
-            'Baru',
-            NULL,
-            '$id_karyawan'
+            '$tipe_pembayaran',
+            '$status_bayar'
             )");
 
         if ($submit) {
