@@ -95,7 +95,13 @@ include '../../templates/head.php';
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
                                                         <td><a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
                                                         <td align="center"><?= $row['tipe_pembayaran'] ?></td>
-                                                        <td align="center"><?= $row['status_bayar'] ?></td>
+                                                        <td align="center">
+                                                            <?php if($row['status_bayar'] == "Sudah Dibayar"){ ?>
+                                                                <span class="badge badge-success"><?= $row['status_bayar'] ?></span>    
+                                                            <?php }else{ ?>
+                                                                <span class="badge badge-warning"><?= $row['status_bayar'] ?></span>  
+                                                            <?php } ?>
+                                                        </td>
                                                         <td align="center">
                                                             <!-- <a href="printdetail?id=<?= $row['id_perusahaan'] ?>" class="btn btn-info btn-sm" target="blank" title="Print Detail"><i class="fa fa-print"></i></a> -->
                                                             <a href="edit?id=<?= $row['id_pemesanan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>

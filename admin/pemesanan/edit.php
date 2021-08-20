@@ -228,12 +228,12 @@ include '../../templates/head.php';
 
 
         $submit = $koneksi->query("UPDATE pemesanan SET
-            tanggal_pesan   = '$tanggal_pesan',
-            id_pelanggan    = '$id_pelanggan',
-            id_katalog      = '$id_katalog',
-            file       = '$nama_file',
-            tipe_pembayaran = '$tipe_pembayaran',
-            status_bayar    = '$status_bayar'
+            tanggal_pesan     = '$tanggal_pesan',
+            id_pelanggan      = '$id_pelanggan',
+            id_katalog        = '$id_katalog',
+            file              = '$nama_file',
+            tipe_pembayaran   = '$tipe_pembayaran',
+            status_bayar      = '$status_bayar'
             WHERE id_pemesanan = '$id'
         ");
 

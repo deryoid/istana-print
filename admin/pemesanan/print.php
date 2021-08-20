@@ -1,10 +1,7 @@
 <?php
 include '../../config/config.php';
 include '../../config/koneksi.php';
-
-$no = 1;
-
-$data = $koneksi->query("SELECT * FROM perusahaan  ORDER BY id_perusahaan DESC");
+include '../../config/day.php';
 
 $bln = array(
     '01' => 'Januari',
@@ -35,58 +32,69 @@ $bln = array(
 </head>
 
 <body>
-<!-- <img src="<?=base_url('assets/dist/img/logo_pln.jpg')?>" align="left" width="90" height="90">
+<img src="<?=base_url('assets/dist/img/istana-print.png')?>" align="left" width="90" height="90">
+<img src="<?=base_url('assets/dist/img/blank.jpg')?>" align="right" width="90" height="90">
   <p align="center"><b>
-    <font size="7">PT. GERAI INDAH MARABAHAN</font> <br> <br> <br> <br>
+    <font size="5">ISTANA PRINT</font><br>
+    <font size="3">
+        Jl. Bridgen H. Hasan Basri, kayutangi (Samping ALFAMART) <br>
+        Telp : 0812 5834 9128 - 0858 2821 1851 <br>
+        Email : istanaprintkayutangi@gmail.com
+    </font>
     <hr size="2px" color="black">
-    <center><font size="2">Alamat : Jl. AES Nasution, Marabahan Kota, Marabahan Kabupaten Barito Kuala Kalimantan Selatan </font></center>
-    <hr size="2px" color="black">
-  </b></p> -->
-    <p align="center"><b>
-            <font size="5">Laporan Pemesanan</font> <br>
-            <hr size="2px" color="black">
-        </b></p>
+  </b></p>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card-box table-responsive">
+  Cetak : <?= $_SESSION['username'] ?>
+  <div style="float: right;">
+    Tanggal Cetak :
+    <?= tgl_indo(date('Y-m-d')) ?> <br>
+    Halaman : 1
+  </div>
+
+  <br>
+  <h3 style="text-align: center;">Laporan Daftar Staff Karyawan</h3>
+  
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
-                    <tr align="center">
-                                                    <th>No</th>
-                                                    <th>Nama Cust</th>
-                                                    <th>NIK Cust</th>
-                                                    <th>No Whatsapp/Telp</th>
-                                                    <th>Katalog Dipesan</th>
-                                                    <th>Tanggal Pesananan</th>
-                                                </tr>
-                                            </thead>
-                                            <?php
-                                            $no = 1;
-                                            $data = $koneksi->query("SELECT * FROM pemesanan AS p
-                                            LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
-                                            LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan
-                                            WHERE status = 'Baru' OR status = 'NULL'");
-                                            while ($row = $data->fetch_array()) {
-                                            ?>
-                                                <tbody style="background-color: azure">
-                                                    <tr>
-                                                        <td align="center"><?= $no++ ?></td>
-                                                        <td><?= $row['nama_pemesan'] ?></td>
-                                                        <td><?= $row['nik'] ?></td>
-                                                        <td><?= $row['no_wa'] ?></td>
-                                                        <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
-                                                        <td><?= $row['tanggal_pesan'] ?></td>
-                                                    </tr>
-                                                </tbody>
-                                            <?php } ?>
+                        <tr align="center">
+                            <th>No</th>
+                            <th>Tanggal Pesananan</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Nama Produk</th>
+                            <th>Jenis</th>
+                            <th>Ukuran</th>
+                            <th>Harga(Rp)</th>
+                            <th>Harga Desain(Rp)</th>
+                            <th>Total</th>
+                            <th>Tipe Pembayaran</th>
+                            <th>Status Bayar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    <?php
+                        $no = 1;
+                        $data = $koneksi->query("SELECT * FROM pemesanan AS p
+                        LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
+                        LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog ORDER BY id_pemesanan DESC");
+                        while ($row = $data->fetch_array()) {
+                    ?>
+                        <tr align="center">
+                            <td align="center"><?= $no++ ?></td>
+                            <td><?= tgl_indo($row['tanggal_pesan']) ?></td>
+                            <td><?= $row['nama_pelanggan'] ?></td>
+                            <td><?= $row['nama_katalog'] ?></td>
+                            <td><?= $row['jenis_katalog'] ?></td>
+                            <td><?= $row['ukuran'] ?></td>
+                            <td align="right"><?= number_format($row['harga'], 0,',','.') ?></td>
+                            <td align="right"><?= number_format($row['harga_desain'], 0,',','.') ?></td>
+                            <td align="right"><?= number_format($row['total_harga'], 0, ',','.') ?></td>
+                            <td align="center"><?= $row['tipe_pembayaran'] ?></td>
+                            <td align="center"><?= $row['status_bayar'] ?></td>
+                        </tr>
+                    <?php } ?>
                     </tbody>
-
                 </table>
-
-            </div>
-        </div>
-    </div>
     <br>
 
     </div>
@@ -105,33 +113,3 @@ $bln = array(
 </body>
 
 </html>
-
-<script>
-    <?php
-    function tgl_indo($tanggal)
-    {
-        $bulan = array(
-            1 =>   'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember'
-        );
-        $pecahkan = explode('-', $tanggal);
-
-        // variabel pecahkan 0 = tanggal
-        // variabel pecahkan 1 = bulan
-        // variabel pecahkan 2 = tahun
-
-        return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
-    }
-
-    ?>
-</script>
