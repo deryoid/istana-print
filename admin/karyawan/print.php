@@ -1,6 +1,7 @@
 <?php
 include '../../config/config.php';
 include '../../config/koneksi.php';
+include '../../config/day.php';
 
 $bln = array(
     '01' => 'Januari',
@@ -31,44 +32,59 @@ $bln = array(
 </head>
 
 <body>
-<!-- <img src="<?=base_url('assets/dist/img/logo_pln.jpg')?>" align="left" width="90" height="90">
+<img src="<?=base_url('assets/dist/img/istana-print.png')?>" align="left" width="90" height="90">
+<img src="<?=base_url('assets/dist/img/blank.jpg')?>" align="right" width="90" height="90">
   <p align="center"><b>
-    <font size="7">PT. GERAI INDAH MARABAHAN</font> <br> <br> <br> <br>
+    <font size="5">ISTANA PRINT</font><br>
+    <font size="3">
+        Jl. Bridgen H. Hasan Basri, kayutangi (Samping ALFAMART) <br>
+        Telp : 0812 5834 9128 - 0858 2821 1851 <br>
+        Email : istanaprintkayutangi@gmail.com
+    </font>
     <hr size="2px" color="black">
-    <center><font size="2">Alamat : Jl. AES Nasution, Marabahan Kota, Marabahan Kabupaten Barito Kuala Kalimantan Selatan </font></center>
-    <hr size="2px" color="black">
-  </b></p> -->
-    <p align="center"><b>
-            <font size="5">Laporan Karyawan</font> <br>
-            <hr size="2px" color="black">
-        </b></p>
+  </b></p>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
                 <table border="1" cellspacing="0" width="100%">
-                <thead class="bg-red">
-                                                <tr align="center">
-                                                    <th>No</th>
-                                                    <th>Nama Karyawan</th>
-                                                    <th>Bidang</th>
-                                                </tr>
-                                            </thead>
-                                            <?php
-                                            $no = 1;
-                                            $data = $koneksi->query("SELECT * FROM karyawan");
-                                            while ($row = $data->fetch_array()) {
-                                            ?>
-                                                <tbody style="background-color: azure">
-                                                    <tr>
-                                                        <td align="center"><?= $no++ ?></td>
-                                                        <td><?= $row['nama_karyawan'] ?></td>
-                                                        <td><?= $row['bidang'] ?></td>
-                                                    </tr>
-                                                </tbody>
-                                            <?php } ?>
-                    </tbody>
+                    <thead style="background-color: crimson; color: white;">
+                        <tr align="center">
+                            <th>No</th>
+                            <th>Nama Karyawan</th>
+                            <th>Jenis Kelamin</th>
+                            <th>TTL</th>
+                            <th>Agama</th>
+                            <th>Pendidikan</th>
+                            <th>Jurusan</th>
+                            <th>Alamat</th>
+                            <th>Hp</th>
+                            <th>Bidang</th>
+                            <th>Jabatan</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                    <?php
+                        $no = 1;
+                        $data = $koneksi->query("SELECT * FROM karyawan");
+                        while ($row = $data->fetch_array()) {
+                    ?>
+                        <tr align="center">
+                            <td><?= $no++ ?></td>
+                            <td align="left"><?= $row['nama_karyawan'] ?></td>
+                            <td><?= $row['jk'] ?></td>
+                            <td align="left"><?= $row['tempat_lahir'].', '.tgl_indo($row['tgl_lahir']) ?></td>
+                            <td><?= $row['agama'] ?></td>
+                            <td><?= $row['pendidikan'] ?></td>
+                            <td><?= $row['jurusan'] ?></td>
+                            <td align="left"><?= $row['alamat'] ?></td>
+                            <td><?= $row['hp'] ?></td>
+                            <td><?= $row['bidang'] ?></td>
+                            <td><?= $row['jabatan'] ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
                 </table>
 
             </div>
@@ -92,33 +108,3 @@ $bln = array(
 </body>
 
 </html>
-
-<script>
-    <?php
-    function tgl_indo($tanggal)
-    {
-        $bulan = array(
-            1 =>   'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember'
-        );
-        $pecahkan = explode('-', $tanggal);
-
-        // variabel pecahkan 0 = tanggal
-        // variabel pecahkan 1 = bulan
-        // variabel pecahkan 2 = tahun
-
-        return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
-    }
-
-    ?>
-</script>

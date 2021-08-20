@@ -65,17 +65,91 @@ include '../../templates/head.php';
 
 
                                     <div class="form-group row">
-                                            <label for="nama_katalog" class="col-sm-2 col-form-label">Nama Karyawan</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan" value="<?= $row['nama_karyawan']; ?>">
-                                            </div>
+                                        <label for="nama_katalog" class="col-sm-2 col-form-label">Nama Karyawan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan" value="<?= $row['nama_karyawan']; ?>">
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="jenis_katalog" class="col-sm-2 col-form-label">Bidang</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="bidang" name="bidang" value="<?= $row['bidang']; ?>">
-                                            </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="nama_katalog" class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                                        <div class="col-sm-10">
+                                            <select name="jk" class="form-control" required>
+                                                <option value="Laki-laki" <?= $row['jk'] == "Laki-laki" ? "selected" : "" ?>>Laki-laki</option>
+                                                <option value="Perempuan" <?= $row['jk'] == "Perempuan" ? "selected" : "" ?>>Perempuan</option>
+                                            </select>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Tempat Lahir</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="tempat_lahir" value="<?= $row['tempat_lahir']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" class="form-control" name="tgl_lahir" value="<?= $row['tgl_lahir']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Agama</label>
+                                        <div class="col-sm-10">
+                                            <select name="agama" class="form-control" required>
+                                                <option value="Islam" <?= $row['agama'] == "Islam" ? "selected" : "" ?>>Islam</option>
+                                                <option value="Kristen" <?= $row['agama'] == "Kristen" ? "selected" : "" ?>>Kristen</option>
+                                                <option value="Budha" <?= $row['agama'] == "Budha" ? "selected" : "" ?>>Budha</option>
+                                                <option value="Hindu" <?= $row['agama'] == "Hindu" ? "selected" : "" ?>>Hindu</option>
+                                                <option value="Katolik" <?= $row['agama'] == "Katolik" ? "selected" : "" ?>>Katolik</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Pendidikan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="pendidikan" value="<?= $row['pendidikan']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Jurusan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="jurusan" value="<?= $row['jurusan']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Alamat</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="alamat" value="<?= $row['alamat']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">No Hp</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" name="hp" value="<?= $row['hp']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Bidang</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="bidang" name="bidang" value="<?= $row['bidang']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Jabatan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="jabatan" value="<?= $row['jabatan']; ?>">
+                                        </div>
+                                    </div>
+
                                     </div>
                                     <!-- /.card-body -->
 
@@ -115,17 +189,35 @@ include '../../templates/head.php';
 
     <?php
     if (isset($_POST['submit'])) {
-        $nama_karyawan        = $_POST['nama_karyawan'];
-        $bidang       = $_POST['bidang'];
+        $nama_karyawan = $_POST['nama_karyawan'];
+        $jk            = $_POST['jk'];
+        $tempat_lahir  = $_POST['tempat_lahir'];
+        $tgl_lahir     = $_POST['tgl_lahir'];
+        $agama         = $_POST['agama'];
+        $pendidikan    = $_POST['pendidikan'];
+        $jurusan       = $_POST['jurusan'];
+        $alamat        = $_POST['alamat'];
+        $hp            = $_POST['hp'];
+        $bidang        = $_POST['bidang'];
+        $jabatan       = $_POST['jabatan'];
 
         $submit = $koneksi->query("UPDATE karyawan SET  
                             nama_karyawan = '$nama_karyawan',
-                            bidang = '$bidang'
+                            jk            = '$jk',
+                            tempat_lahir  = '$tempat_lahir',
+                            tgl_lahir     = '$tgl_lahir',
+                            agama         = '$agama',
+                            pendidikan    = '$pendidikan',
+                            jurusan       = '$jurusan',
+                            alamat        = '$alamat',
+                            hp            = '$hp',
+                            bidang        = '$bidang',
+                            jabatan       = '$jabatan'
                             WHERE 
                             id_karyawan = '$id'");
 
         if ($submit) {
-            $_SESSION['pesan'] = "Data Karyawan Ditambahkan";
+            $_SESSION['pesan'] = "Data Karyawan Diubah";
             echo "<script>window.location.replace('../karyawan/');</script>";
         }
     }

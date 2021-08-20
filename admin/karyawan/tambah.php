@@ -64,15 +64,90 @@ include '../../templates/head.php';
                                         <div class="form-group row">
                                             <label for="nama_katalog" class="col-sm-2 col-form-label">Nama Karyawan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan">
+                                                <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan" required>
                                             </div>
                                         </div>
+                                        
                                         <div class="form-group row">
-                                            <label for="jenis_katalog" class="col-sm-2 col-form-label">Bidang</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="bidang" name="bidang">
-                                            </div>
+                                        <label for="nama_katalog" class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                                        <div class="col-sm-10">
+                                            <select name="jk" class="form-control" required>
+                                                <option value="" disabled selected>--Pilih--</option>
+                                                <option value="Laki-laki">Laki-laki</option>
+                                                <option value="Perempuan">Perempuan</option>
+                                            </select>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Tempat Lahir</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="tempat_lahir" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" class="form-control" name="tgl_lahir" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Agama</label>
+                                        <div class="col-sm-10">
+                                            <select name="agama" class="form-control" required>
+                                                <option value="" selected disabled>--Pilih--</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Budha">Budha</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Katolik">Katolik</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Pendidikan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="pendidikan" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Jurusan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="jurusan" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Alamat</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="alamat" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">No Hp</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" name="hp" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Bidang</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="bidang" name="bidang" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="jenis_katalog" class="col-sm-2 col-form-label">Jabatan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="jabatan" required>
+                                        </div>
+                                    </div>
                                     
                                     </div>
                                     <!-- /.card-body -->
@@ -113,14 +188,32 @@ include '../../templates/head.php';
 
     <?php
     if (isset($_POST['submit'])) {
-        $nama_karyawan        = $_POST['nama_karyawan'];
-        $bidang               = $_POST['bidang'];
+        $nama_karyawan = $_POST['nama_karyawan'];
+        $jk            = $_POST['jk'];
+        $tempat_lahir  = $_POST['tempat_lahir'];
+        $tgl_lahir     = $_POST['tgl_lahir'];
+        $agama         = $_POST['agama'];
+        $pendidikan    = $_POST['pendidikan'];
+        $jurusan       = $_POST['jurusan'];
+        $alamat        = $_POST['alamat'];
+        $hp            = $_POST['hp'];
+        $bidang        = $_POST['bidang'];
+        $jabatan       = $_POST['jabatan'];
 
 
         $submit = $koneksi->query("INSERT INTO karyawan VALUES (
             NULL,
             '$nama_karyawan',
-            '$bidang'
+            '$jk',
+            '$tempat_lahir',
+            '$tgl_lahir',
+            '$agama',
+            '$pendidikan',
+            '$jurusan',
+            '$alamat',
+            '$hp',
+            '$bidang',
+            '$jabatan'
             )");
 
         if ($submit) {
