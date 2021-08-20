@@ -44,11 +44,24 @@ $bln = array(
     <hr size="2px" color="black">
   </b></p>
 
+  Cetak : <?= $_SESSION['username'] ?>
+  <div style="float: right;">
+    Tanggal Cetak :
+    <?= tgl_indo(date('Y-m-d')) ?> <br>
+    Halaman : 1
+  </div>
+
+  <br>
+  <div style="text-align: center; font-size: 18;">
+        Laporan Daftar Staff Karyawan
+  </div>
+  <br>
+
     <div class="row">
         <div class="col-sm-12">
             <div class="card-box table-responsive">
                 <table border="1" cellspacing="0" width="100%">
-                    <thead style="background-color: crimson; color: white;">
+                    <thead>
                         <tr align="center">
                             <th>No</th>
                             <th>Nama Karyawan</th>

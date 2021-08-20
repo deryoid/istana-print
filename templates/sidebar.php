@@ -56,6 +56,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?= base_url('admin/pelanggan') ?>" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Pelanggan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?= base_url('admin/katalog') ?>" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
               <p>
