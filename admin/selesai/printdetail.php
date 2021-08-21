@@ -143,11 +143,12 @@ window.print();
                 <table width="100%" border="0" cellspacing="0">
                     <thead>
                         <tr style="color: black;">
-                            <!-- <th style="text-align: center; ">No</th>
-                            <th style="text-align: center; ">Nama menu</th>
-                            <th style="text-align: center; ">Harga menu</th>
-                            <th style="text-align: center; ">Banyak Beli</th>
-                            <th style="text-align: center; ">Sub total</th> -->
+                            <th style="text-align: center; ">No</th>
+                            <th style="text-align: center; ">Nama Katalog</th>
+                            <th style="text-align: center; ">Jenis Katalog</th>
+                            <th style="text-align: center; ">Ukuran</th>
+                            <th style="text-align: center; ">Harga</th>
+                            <th style="text-align: center; ">Harga Desain</th>
                         </tr>
                     </thead>
 
@@ -158,7 +159,6 @@ window.print();
                                 <td align="center"><?= $data['nama_katalog']; ?></td>
                                 <td align="center"><?= $data['jenis_katalog']; ?></td>
                                 <td align="center"><?= $data['ukuran']; ?></td>
-                                <td align="center"><?= $data['qty']; ?></td>
                                 <td align="right"><?= number_format($data['harga'], '0', ',', '.'); ?></td>
                                 <td align="right"><?= number_format($data['harga_desain'], '0', ',', '.'); ?></td>
                             </tr>

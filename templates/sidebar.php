@@ -105,10 +105,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('admin/pengembalian/') ?>" class="nav-link">
-              <i class="nav-icon fas fa-undo-alt"></i>
+            <a href="<?= base_url('admin/produk-gagal/') ?>" class="nav-link">
+              <i class="nav-icon fas fa-times-circle"></i>
               <p>
-                Pengembalian
+                Produk Gagal
               </p>
             </a>
           </li>
