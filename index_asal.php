@@ -46,47 +46,65 @@ include 'templates_public/head.php';
       <section class="content">
         <div class="container-fluid">
           <!-- Small boxes (Stat box) -->
+
+        <!-- <div class="alert alert-info" role="alert">
+            <h5><b>
+            <i class="fa fa-info-circle"></i>
+                "Selamat Datang Di Aplikasi Pelayanan Terpadu Gambut Online Kecamatan Gambut"</marquee> 
+              </b></h5>
+          </div> -->
+
+          
           <div class="row">
-            <?php 
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                          <?php
+                          if (isset($_SESSION['pesan']) && $_SESSION['pesan'] <> '') {
+                          ?>
+                              <div class="alert alert-success alertinfo" role="alert">
+                                  <h1 class="fa fa-check-circle"> <?= $_SESSION['pesan']; ?></h1>
+                              </div>
+                          <?php
+                              $_SESSION['pesan'] = '';
+                          }
+                          ?>
+                  
+                <div class="row">
+                <?php 
                 $data = $koneksi->query("SELECT * FROM katalog");
                 while ($row = $data->fetch_array()) {
-            ?>
-              <div class="col-lg-3 col-6">
-                <div class="card">
-                  <a href="<?= base_url("assets/katalog/". $row['file']) ?>" target="_blank">
-                    <img src="<?= base_url("assets/katalog/". $row['file']) ?>" class="card-img-top" alt="Tidak ada foto" style="width: 100%; height: 200px;">
-                  </a>
-                  <div class="card-body">
-                    <h2 class="card-title text-bold"><?= $row['nama_katalog'] ?></h2>
-                    <p class="card-text">
-                      <table border="0">
-                        <tr>
-                          <td><li>Jenis</li></td>
-                          <td width="30%" align="center">:</td>
-                          <td><?= $row['jenis_katalog'] ?></td>
-                        </tr>
-                        <tr>
-                          <td><li>Qty</li></td>
-                          <td width="30%" align="center">:</td>
-                          <td><?= $row['qty'] ?></td>
-                        </tr>
-                        <tr>
-                          <td><li>Ukuran</li></td>
-                          <td width="30%" align="center">:</td>
-                          <td><?= $row['ukuran'] ?></td>
-                        </tr>
-                        <tr>
-                          <td><li>Harga</li></td>
-                          <td width="30%" align="center">:</td>
-                          <td><?= $row['harga'] ?></td>
-                        </tr>
-                      </table>
-                    </p>
+                ?>
+                <div class="col-lg-4 col-6">
+                  <div class="small-box bg-danger">
+                    <div class="inner">
+                    
+                      <p> 
+                      <h4><u><?= $row['nama_katalog'] ?></u></h4>
+                      <ul>
+                        <li>Jenis Katalog : <?= $row['jenis_katalog'] ?></li>
+                        <li>Qty : <?= $row['qty'] ?></li>
+                        <li>Ukuran : <?= $row['ukuran'] ?></li>
+                        <li>Harga : <?= $row['harga'] ?></li>
+                      </ul>
+                      </p>
+                    </div>
+                    
+                    <div class="icon">
+                    
+                    </div>
                   </div>
                 </div>
-              </div>       
-              <?php } ?>
+                <?php } ?>
+                </div>
+              </div>
             </div>
+          </div>
+
+
+
+          </div>
+          <!-- /.row -->
 
         </div><!-- /.container-fluid -->
       </section>

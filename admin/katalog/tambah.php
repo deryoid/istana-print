@@ -167,7 +167,7 @@ include '../../templates/head.php';
             $size_file = $_FILES['file']['size'];
             $tmp_file  = $_FILES['file']['tmp_name'];
             $dir_file  = '../../assets/katalog/';
-            $allow_ext        = array('png', 'jpg', 'JPG', 'jpeg', 'zip', 'rar', 'pdf');
+            $allow_ext        = array('png', 'jpg', 'JPG', 'jpeg');
             $allow_size       = 2048 * 2048 * 10;
 
             if (in_array($ext_file, $allow_ext) === true) {
@@ -196,7 +196,7 @@ include '../../templates/head.php';
             setTimeout(function () {    
                 swal({
                     title: 'Format File Tidak Didukung',
-                    text:  'Format File Harus Berupa PNG,JPG,RAR,ZIP, PDF',
+                    text:  'Format File Harus Berupa PNG,JPG',
                     type: 'warning',
                     timer: 3000,
                     showConfirmButton: true
