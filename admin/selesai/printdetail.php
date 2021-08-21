@@ -6,16 +6,9 @@ $no = 1;
 $id = $_GET['id'];
 $query = $koneksi->query("SELECT * FROM pemesanan AS p
 LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
-LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan
+LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
 WHERE p.id_pemesanan = '$id'");
 $data = $query->fetch_array();
-// var_dump($data);
-
-
-
-// $detail = $conn->query("SELECT * FROM detail_transaksi_pembayaran d
-//                                       LEFT JOIN stok_menu s ON d.kode_menu = s.kode_menu
-//                                       WHERE d.no_nota = '$id' ORDER BY d.id_detail DESC");
 
 $bln = array(
     '01' => 'Januari',
@@ -72,7 +65,8 @@ window.print();
     }
     @media print {
         html, body {
-            width: 100mm;
+            /* width: 100mm; */
+            width: auto;
             height: 160mm;        
         }
         .page {
@@ -95,7 +89,8 @@ window.print();
 </head>
 
 <body>
-    <img src="<?= base_url('assets/dist/img/istana-print.PNG') ?>" align="left" width="100" height="100" style="margin-top: 15px;"><br>
+    <img src="<?= base_url('assets/dist/img/istana-print.PNG') ?>" align="left" width="100" height="100" style="margin-top: 15px;">
+    <img src="<?= base_url('assets/dist/img/blank.jpg') ?>" align="right" width="100" height="100" style="margin-top: 15px;"><br>
     <p align="center"><b>
             <font size="5">NOTA TRANSAKSI PEMBAYARAN
             <i></i></font> <br>
@@ -109,13 +104,13 @@ window.print();
         <div class="col-sm-12">
             <div class="card-box table-responsive">
                 <table width="100%" cellspacing="2" border="0">
-                    <tr>
+                    <!-- <tr>
                         <td width="25%"><b>No Nota</b></td>
                         <td width="3%">:</td>
                         <td width="72%">
                             <b><?= $data[0]; ?></b>
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td><b>Tanggal Transaksi</td></b>
@@ -126,10 +121,10 @@ window.print();
                     </tr>
 
                     <tr>
-                        <td><b>Nama Pemesan</td></b>
+                        <td><b>Nama Pelanggan</td></b>
                         <td>:</td>
                         <td>
-                            <b><?= $data['nama_pemesan'] ?></b>
+                            <b><?= $data['nama_pelanggan'] ?></b>
                         </td>
                     </tr>
 
@@ -137,7 +132,7 @@ window.print();
                         <td><b>Nomor Telp/WA</td></b>
                         <td>:</td>
                         <td>
-                            <b><?= $data['no_wa'] ?></b>
+                            <b><?= $data['no_hp'] ?></b>
                         </td>
                     </tr>
 

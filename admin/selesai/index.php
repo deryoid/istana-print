@@ -50,8 +50,8 @@ include '../../templates/head.php';
                         <div class="col-12">
                             <div class="card card-danger card-outline">
                                 <div class="card-header">
-                                    <a href="print" target="blank" class="btn bg-yellow"><i class="fa fa-print"> Cetak Pekerjaan Selesai</i></a>
-                                    <a href="print2" target="blank" class="btn bg-yellow"><i class="fa fa-print"> Cetak Barang yang Sudah Diambil</i></a>
+                                    <button data-toggle="modal" data-target="#modal-cetak1" class="btn bg-yellow"><i class="fa fa-print"> Cetak Barang yang Belum Diambil</i></button>
+                                    <button data-toggle="modal" data-target="#modal-cetak2" class="btn bg-success"><i class="fa fa-print"> Cetak Barang yang Sudah Diambil</i></button>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -72,13 +72,10 @@ include '../../templates/head.php';
                                                 <tr align="center">
                                                     <th>No</th>
                                                     <th>Nota</th>
-                                                    <th>Nama Cust</th>
-                                                    <th>NIK Cust</th>
-                                                    <th>No Whatsapp/Telp</th>
-                                                    <th>Katalog Dipesan</th>
                                                     <th>Tanggal Pesananan</th>
-                                                    <th>Karyawan</th>
-                                                    <th>Status</th>
+                                                    <th>Nama Pelanggan</th>
+                                                    <th>Katalog Dipesan</th>
+                                                    <th>File</th>
                                                     <th>Status Pengambilan</th>
                                                     <th>Opsi</th>
                                                 </tr>
@@ -86,28 +83,26 @@ include '../../templates/head.php';
                                             <?php
                                             $no = 1;
                                             $data = $koneksi->query("SELECT * FROM pemesanan AS p
+                                            LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
                                             LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
-                                            LEFT JOIN karyawan AS ky ON p.id_karyawan = ky.id_karyawan
-                                            WHERE status = 'Selesai'");
+                                            WHERE p.status_pengerjaan = 'Selesai'");
                                             while ($row = $data->fetch_array()) {
                                             ?>
                                                 <tbody style="background-color: azure">
                                                     <tr>
                                                         <td align="center"><?= $no++ ?></td>
                                                         <td align="center"><a href="printdetail?id=<?= $row['id_pemesanan'] ?>" target="blank" class="btn btn-info btn-sm" title="Nota"><i class="fa fa-file-invoice"></i>Nota</a></td>
-                                                        <td><?= $row['nama_pemesan'] ?></td>
-                                                        <td><?= $row['nik'] ?></td>
-                                                        <td><?= $row['no_wa'] ?></td>
+                                                        <td><?= tgl_indo($row['tanggal_pesan']) ?></td>
+                                                        <td><?= $row['nama_pelanggan'] ?></td>
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
-                                                        <td><?= $row['tanggal_pesan'] ?></td>
-                                                        <td><?= $row['nama_karyawan'] ?></td>
-                                                        <td align="center"><b><u><?= $row['status'] ?></u></b></td>
-                                                        
-                                                        <?php if ($row['status_pengambilan'] != NULL) { ?>
-                                                        <td align="center"><b><u><?= $row['status_pengambilan'];?></u></b></td>
-                                                        <?php }else{ ?>
-                                                            <td align="center"><b><u>Belum Diambil</u></b></td>
-                                                        <?php } ?>
+                                                        <td><a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
+                                                        <td align="center">
+                                                            <?php if($row['status_pengambilan'] == "Sudah Diambil"){ ?>
+                                                                <span class="badge badge-success"><?= $row['status_pengambilan'] ?></span>    
+                                                            <?php }elseif($row['status_pengambilan'] == "Belum Diambil"){ ?>
+                                                                <span class="badge badge-warning"><?= $row['status_pengambilan'] ?></span>   
+                                                            <?php } ?>
+                                                        </td>
                                                         <td align="center">
                                                             <a href="edit?id=<?= $row['id_pemesanan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i> Pilih Status</a>
                                                         </td>
@@ -130,6 +125,109 @@ include '../../templates/head.php';
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
+
+
+         <!-- MODAL FILTER CETAK BELUM DI AMBIL -->
+        <div class="modal fade" id="modal-cetak1">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Filter Cetak Laporan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="print" target="blank" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Bulan</label>
+                            <select name="bulan" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Bulan--</option>
+                                <option value="01">Januari</option>
+                                <option value="02">Februari</option>
+                                <option value="03">Maret</option>
+                                <option value="04">April</option>
+                                <option value="05">Mei</option>
+                                <option value="06">Juni</option>
+                                <option value="07">Juli</option>
+                                <option value="08">Agustus</option>
+                                <option value="09">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <select name="tahun" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Tahun--</option>
+                                <?php for ($i=2020; $i <= date('Y'); $i++) { ?>
+                                    <option value="<?= $i ?>"><?= $i ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                   </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-print"> Cetak</i></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"> Tutup</i></button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+            </div>
+        </div>
+    <!-- /.modal-dialog1 -->
+
+         <!-- MODAL FILTER CETAK SUDHA DI AMBIL -->
+        <div class="modal fade" id="modal-cetak2">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Filter Cetak Laporan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="print2" target="blank" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Bulan</label>
+                            <select name="bulan" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Bulan--</option>
+                                <option value="01">Januari</option>
+                                <option value="02">Februari</option>
+                                <option value="03">Maret</option>
+                                <option value="04">April</option>
+                                <option value="05">Mei</option>
+                                <option value="06">Juni</option>
+                                <option value="07">Juli</option>
+                                <option value="08">Agustus</option>
+                                <option value="09">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <select name="tahun" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Tahun--</option>
+                                <?php for ($i=2020; $i <= date('Y'); $i++) { ?>
+                                    <option value="<?= $i ?>"><?= $i ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                   </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-print"> Cetak</i></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"> Tutup</i></button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+            </div>
+        </div>
+    <!-- /.modal-dialog -->
 
         <?php include_once "../../templates/footer.php"; ?>
 

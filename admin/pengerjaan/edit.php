@@ -101,10 +101,10 @@ include '../../templates/head.php';
                                             <label for="no_telp" class="col-sm-2 col-form-label">Status Pengerjaan</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control" name="status_pengerjaan" required>
-                                                    <option value="" selected disabled>--Pilih--</option>
-                                                    <option value="Belum Diproses">Belum Diproses</option>
-                                                    <option value="Sedang Diproses">Sedang Diproses</option>
-                                                    <option value="Selesai">Selesai</option>
+                                                    <option value="" disabled>--Pilih--</option>
+                                                    <option value="Belum Diproses" <?= $row['status_pengerjaan'] == "Belum Diproses" ? "selected" : "" ?>>Belum Diproses</option>
+                                                    <option value="Sedang Diproses" <?= $row['status_pengerjaan'] == "Sedang Diproses" ? "selected" : "" ?>>Sedang Diproses</option>
+                                                    <option value="Selesai" <?= $row['status_pengerjaan'] == "Selesai" ? "selected" : "" ?>>Selesai</option>
                                                 </select>
                                             </div>
                                         </div>

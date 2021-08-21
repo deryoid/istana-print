@@ -44,6 +44,7 @@ $bln = array(
     <hr size="2px" color="black">
   </b></p>
 
+  Filter : <?= $bln[$_POST['bulan']].'/'.$_POST['tahun'].'/'.$_POST['status_bayar'] ?> <br>
   Cetak : <?= $_SESSION['username'] ?>
   <div style="float: right;">
     Tanggal Cetak :
@@ -52,7 +53,7 @@ $bln = array(
   </div>
 
   <br>
-  <h3 style="text-align: center;">Laporan Daftar Staff Karyawan</h3>
+  <h3 style="text-align: center;">Laporan Daftar Pemesanan</h3>
   
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
@@ -76,7 +77,7 @@ $bln = array(
                         $no = 1;
                         $data = $koneksi->query("SELECT * FROM pemesanan AS p
                         LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
-                        LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog ORDER BY id_pemesanan DESC");
+                        LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog WHERE MONTH(tanggal_pesan) = '$_POST[bulan]' AND YEAR(tanggal_pesan) = '$_POST[tahun]' AND status_bayar = '$_POST[status_bayar]' ORDER BY id_pemesanan DESC");
                         while ($row = $data->fetch_array()) {
                     ?>
                         <tr align="center">

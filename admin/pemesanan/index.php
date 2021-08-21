@@ -51,7 +51,7 @@ include '../../templates/head.php';
                             <div class="card card-danger card-outline">
                                 <div class="card-header">
                                     <a href="tambah" class="btn bg-blue"><i class="fa fa-plus-circle"> Tambah Data</i></a>
-                                    <a href="print" target="blank" class="btn bg-yellow"><i class="fa fa-print"> Cetak</i></a>
+                                    <button data-toggle="modal" data-target="#modal-cetak" class="btn bg-yellow"><i class="fa fa-print"> Cetak</i></button>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -126,6 +126,66 @@ include '../../templates/head.php';
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
+
+
+        <!-- MODAL FILTER CETAK -->
+        <div class="modal fade" id="modal-cetak">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Filter Cetak Laporan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="print" target="blank" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Bulan</label>
+                            <select name="bulan" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Bulan--</option>
+                                <option value="01">Januari</option>
+                                <option value="02">Februari</option>
+                                <option value="03">Maret</option>
+                                <option value="04">April</option>
+                                <option value="05">Mei</option>
+                                <option value="06">Juni</option>
+                                <option value="07">Juli</option>
+                                <option value="08">Agustus</option>
+                                <option value="09">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <select name="tahun" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Tahun--</option>
+                                <?php for ($i=2020; $i <= date('Y'); $i++) { ?>
+                                    <option value="<?= $i ?>"><?= $i ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status Bayar</label>
+                            <select name="status_bayar" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Status Bayar--</option>
+                                <option value="Belum Dibayar">Belum Dibayar</option>
+                                <option value="Sudah Dibayar">Sudah Dibayar</option>
+                            </select>
+                        </div>
+                   </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-print"> Cetak</i></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"> Tutup</i></button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+            </div>
+        </div>
+    <!-- /.modal-dialog -->
 
         <?php include_once "../../templates/footer.php"; ?>
 

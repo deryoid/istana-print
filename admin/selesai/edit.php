@@ -4,6 +4,7 @@ require '../../config/koneksi.php';
 $id   = $_GET['id'];
 $data = $koneksi->query("SELECT * FROM pemesanan AS p
 LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
+LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
 WHERE id_pemesanan = '$id'");
 $row  = $data->fetch_array();
 ?>
@@ -67,51 +68,36 @@ include '../../templates/head.php';
 
                                        
                                         <div class="form-group row">
-                                            <label for="nama_pemesan" class="col-sm-2 col-form-label">Nama Cust</label>
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Tanggal Pemesanan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control"  value="<?= $row['nama_pemesan']; ?>" readonly>
+                                                <input type="date" class="form-control" readonly value="<?= $row['tanggal_pesan'] ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="nik" class="col-sm-2 col-form-label">NIK</label>
+                                            <label class="col-sm-2 col-form-label"> Nama Pelanggan</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control"  value="<?= $row['nik']; ?>" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="no_wa" class="col-sm-2 col-form-label">No Whatsapp</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control"  value="<?= $row['no_wa']; ?>" readonly>
+                                                <input type="text" class="form-control" value="<?= $row['id_pelanggan'] ?>" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="nama_pimpinan" class="col-sm-2 col-form-label"> Katalog</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control"  value="<?= $row['nama_katalog']; ?> - Ukuran : <?= $row['ukuran'] ?>" readonly>
+                                                <input type="text" class="form-control" value="<?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?>" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Tanggal Pemesanan</label>
+                                            <label for="email" class="col-sm-2 col-form-label">File</label>
                                             <div class="col-sm-10">
-                                                <input type="date" class="form-control"  value="<?= $row['tanggal_pesan']; ?>" readonly>
+                                            <a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Status</label>
+                                            <label for="no_telp" class="col-sm-2 col-form-label">Status Pengambilan</label>
                                             <div class="col-sm-10">
-                                            <input type="text" class="form-control"  value="<?= $row['status']; ?>" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="no_telp" class="col-sm-2 col-form-label">Status</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control select2" data-placeholder="Pilih " id="status_pengambilan" name="status_pengambilan" >
-                                                <option value="Sudah Diambil" <?php if ($row['status_pengambilan'] == "Sudah Diambil") {
-                                                            echo "selected";
-                                                            } ?>>Sudah Diambil</option>
-                                                <option value="Belum Diambil" <?php if ($row['status_pengambilan'] == "Belum Diambil") {
-                                                                echo "selected";
-                                                            } ?>>Belum Diambil</option>
+                                                <select class="form-control" name="status_pengambilan" required>
+                                                    <option value="" disabled>--Pilih--</option>
+                                                    <option value="Belum Diambil" <?= $row['status_pengambilan'] == "Belum Diambil" ? "selected" : "" ?>>Belum Diambil</option>
+                                                    <option value="Sudah Diambil" <?= $row['status_pengambilan'] == "Sudah Diambil" ? "selected" : "" ?>>Sudah Diambil</option>
                                                 </select>
                                             </div>
                                         </div>
