@@ -78,6 +78,7 @@ include '../../templates/head.php';
                                                     <th>Harga</th>
                                                     <th>Harga Design</th>
                                                     <th>Total Harga</th>
+                                                    <th>File</th>
                                                     <th>Opsi</th>
                                                 </tr>
                                             </thead>
@@ -96,6 +97,13 @@ include '../../templates/head.php';
                                                         <td><?= $row['harga'] ?></td>
                                                         <td><?= $row['harga_desain'] ?></td>
                                                         <td><?= $row['total_harga'] ?></td>
+                                                        <td>
+                                                            <?php if($row['file']) { ?>
+                                                                <a href="<?= base_url("assets/katalog/". $row['file']) ?>" target="blank">
+                                                                    <img src="<?= base_url("assets/katalog/". $row['file']) ?>" style="width: 100px; height: 100px;">
+                                                                </a>
+                                                            <?php }else{echo "Tidak ada file";} ?>
+                                                        </td>
                                                         <td align="center">
                                                             <a href="edit?id=<?= $row['id_katalog'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
                                                             <a href="hapus?id=<?= $row['id_katalog'] ?>" class="btn btn-danger btn-sm alert-hapus" title="Hapus"><i class="fa fa-trash"></i></a>

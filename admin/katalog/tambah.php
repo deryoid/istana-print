@@ -104,6 +104,12 @@ include '../../templates/head.php';
                                                 <input type="text" class="form-control" id="total_harga" name="total_harga">
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">File</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" class="form-control" id="file" name="file">
+                                            </div>
+                                        </div>
 
                                     </div>
                                     <!-- /.card-body -->
@@ -152,6 +158,59 @@ include '../../templates/head.php';
         $harga_desain        = $_POST['harga_desain'];
         $total_harga         = $_POST['total_harga'];
 
+        // UPLOAD FILE
+        if (!empty($_FILES['file']['name'])) {
+            $file      = $_FILES['file']['name'];
+            $x_file    = explode('.', $file);
+            $ext_file  = end($x_file);
+            $nama_file = rand(1, 99999) . '.' . $ext_file;
+            $size_file = $_FILES['file']['size'];
+            $tmp_file  = $_FILES['file']['tmp_name'];
+            $dir_file  = '../../assets/katalog/';
+            $allow_ext        = array('png', 'jpg', 'JPG', 'jpeg', 'zip', 'rar', 'pdf');
+            $allow_size       = 2048 * 2048 * 10;
+
+            if (in_array($ext_file, $allow_ext) === true) {
+                if ($size_file <= $allow_size) {
+                    move_uploaded_file($tmp_file, $dir_file . $nama_file);
+                } else {
+                    echo "
+                <script type='text/javascript'>
+                setTimeout(function () {    
+                    swal({
+                        title: '',
+                        text:  'Ukuran File Terlalu Besar, Maksimal 10 Mb',
+                        type: 'warning',
+                        timer: 3000,
+                        showConfirmButton: true
+                    });     
+                },10);  
+                window.setTimeout(function(){ 
+                    window.history.back();
+                } ,2000);   
+                </script>";
+                }
+            } else {
+                echo "
+            <script type='text/javascript'>
+            setTimeout(function () {    
+                swal({
+                    title: 'Format File Tidak Didukung',
+                    text:  'Format File Harus Berupa PNG,JPG,RAR,ZIP, PDF',
+                    type: 'warning',
+                    timer: 3000,
+                    showConfirmButton: true
+                });     
+            },10);  
+            window.setTimeout(function(){ 
+                window.history.back();
+            } ,2000);   
+            </script>";
+            }
+        }else{
+            $nama_file = NULL;
+        }
+
 
         $submit = $koneksi->query("INSERT INTO katalog VALUES (
             NULL,
@@ -161,7 +220,8 @@ include '../../templates/head.php';
             '$ukuran',
             '$harga',
             '$harga_desain',
-            '$total_harga'
+            '$total_harga',
+            '$nama_file'
             )");
 
         if ($submit) {

@@ -32,7 +32,7 @@
 
     <li class="nav-item dropdown">
       <a class="nav-link alert-logout" href="<?= base_url('logout') ?>">
-        <i class="fas fa-sign-out-alt"></i>
+        <i class="fas fa-sign-out-alt text-white">Logout</i>
       </a>
     </li>
 
