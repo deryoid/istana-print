@@ -52,7 +52,7 @@ $bln = array(
   </div>
 
   <br>
-  <h3 style="text-align: center;">Laporan Data Katalog</h3>
+  <h3 style="text-align: center;">Laporan Data Pelanggan</h3>
 
     <div class="row">
         <div class="col-sm-12">
@@ -61,30 +61,26 @@ $bln = array(
                 <thead class="bg-red">
                     <tr align="center">
                         <th>No</th>
-                        <th>Nama Produk</th>
-                        <th>Jenis Produk</th>
-                        <th>Qty</th>
-                        <th>Ukuran</th>
-                        <th>Harga</th>
-                        <th>Harga Design</th>
-                        <th>Total Harga</th>
+                        <th>ID Pelanggan</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>No Hp</th>
                     </tr>
                 </thead>
                     <tbody>
                         <?php
                         $no = 1;
-                        $data = $koneksi->query("SELECT * FROM katalog");
+                        $data = $koneksi->query("SELECT * FROM pelanggan ORDER BY id_pelanggan DESC");
                         while ($row = $data->fetch_array()) {
                         ?>
                         <tr>
                             <td align="center"><?= $no++ ?></td>
-                            <td><?= $row['nama_katalog'] ?></td>
-                            <td><?= $row['jenis_katalog'] ?></td>
-                            <td><?= $row['qty'] ?></td>
-                            <td><?= $row['ukuran'] ?></td>
-                            <td><?= $row['harga'] ?></td>
-                            <td><?= $row['harga_desain'] ?></td>
-                            <td><?= $row['total_harga'] ?></td>
+                            <td align="center"><?= $row['id_pelanggan'] ?></td>
+                            <td><?= $row['nama_pelanggan'] ?></td>
+                            <td align="center"><?= $row['jk'] ?></td>
+                            <td><?= $row['alamat'] ?></td>
+                            <td align="center"><?= $row['no_hp'] ?></td>
                         </tr>
                         <?php } ?>
                     </tbody>
