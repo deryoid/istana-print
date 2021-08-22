@@ -77,7 +77,6 @@ include '../../templates/head.php';
                                                     <th>File</th>
                                                     <th>Status Bayar</th>
                                                     <th>Status Pengerjaan</th>
-                                                    <th>Opsi</th>
                                                 </tr>
                                             </thead>
                                             <?php
@@ -111,9 +110,6 @@ include '../../templates/head.php';
                                                             <?php }else{ ?>
                                                                 <span class="badge badge-danger"><?= $row['status_pengerjaan'] ?></span>  
                                                             <?php } ?>
-                                                        </td>
-                                                        <td align="center">
-                                                            <a href="edit?id=<?= $row['id_pemesanan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i> Kerjakan</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>

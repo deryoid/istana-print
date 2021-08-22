@@ -92,7 +92,7 @@ include '../../templates/head.php';
                                                     $data1 = $koneksi->query("SELECT * FROM katalog ORDER BY id_katalog ASC");
                                                     while ($dsn = $data1->fetch_array()) {
                                                     ?>
-                                                        <option value="<?= $dsn['id_katalog'] ?>" <?= $data['id_katalog'] == $dsn['id_katalog'] ? "selected" : "" ?>><?= $dsn['nama_katalog'] ?> - Ukuran : <?= $dsn['ukuran'] ?></option>
+                                                        <option value="<?= $dsn['id_katalog'] ?>" <?= $data['id_katalog'] == $dsn['id_katalog'] ? "selected" : "" ?>><?= $dsn['nama_katalog'] ?> - Ukuran : <?= $dsn['ukuran'] ?> - Harga Total : <?= number_format($dsn['total_harga'],0,',','.') ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>

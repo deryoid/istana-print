@@ -44,7 +44,7 @@ $bln = array(
     <hr size="2px" color="black">
   </b></p>
 
-  Filter : <?= $bln[$_POST['bulan']].'/'.$_POST['tahun'].'/'.$_POST['status_pengerjaan'] ?> <br>
+  Filter : <?= $bln[$_POST['bulan']].'/'.$_POST['tahun'].'/'.$_POST['status_bayar'] ?> <br>
   Cetak : <?= $_SESSION['username'] ?>
   <div style="float: right;">
     Tanggal Cetak :
@@ -53,7 +53,7 @@ $bln = array(
   </div>
 
   <br>
-  <h3 style="text-align: center;">Laporan Daftar Riwayat Pengerjaan</h3>
+  <h3 style="text-align: center;">Laporan Daftar Pemesanan</h3>
   
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
@@ -67,8 +67,8 @@ $bln = array(
                             <th>Harga(Rp)</th>
                             <th>Harga Desain(Rp)</th>
                             <th>Total</th>
+                            <th>Tipe Pembayaran</th>
                             <th>Status Bayar</th>
-                            <th>Status Pengerjaan</th>
                         </tr>
                     </thead>
 
@@ -77,7 +77,7 @@ $bln = array(
                         $no = 1;
                         $data = $koneksi->query("SELECT * FROM pemesanan AS p
                         LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
-                        LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog WHERE MONTH(tanggal_pesan) = '$_POST[bulan]' AND YEAR(tanggal_pesan) = '$_POST[tahun]' AND status_pengerjaan = '$_POST[status_pengerjaan]'");
+                        LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog WHERE MONTH(tanggal_pesan) = '$_POST[bulan]' AND YEAR(tanggal_pesan) = '$_POST[tahun]' AND status_bayar = '$_POST[status_bayar]' ORDER BY id_pemesanan DESC");
                         while ($row = $data->fetch_array()) {
                     ?>
                         <tr align="center">
@@ -90,8 +90,8 @@ $bln = array(
                             <td align="right"><?= number_format($row['harga'], 0,',','.') ?></td>
                             <td align="right"><?= number_format($row['harga_desain'], 0,',','.') ?></td>
                             <td align="right"><?= number_format($row['total_harga'], 0, ',','.') ?></td>
+                            <td align="center"><?= $row['tipe_pembayaran'] ?></td>
                             <td align="center"><?= $row['status_bayar'] ?></td>
-                            <td align="center"><?= $row['status_pengerjaan'] ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>

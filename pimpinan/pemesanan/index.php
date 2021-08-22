@@ -30,12 +30,12 @@ include '../../templates/head.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Daftar Riwayat Pengerjaan</h1>
+                            <h1 class="m-0 text-dark">Daftar Pemesanan</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Daftar Riwayat Pengerjaan</li>
+                                <li class="breadcrumb-item active">Daftar Pemesanan</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -73,19 +73,17 @@ include '../../templates/head.php';
                                                     <th>Tanggal Pesananan</th>
                                                     <th>Nama Pelanggan</th>
                                                     <th>Katalog Dipesan</th>
+                                                    <th>Harga Total</th>
                                                     <th>Tipe Pembayaran</th>
                                                     <th>File</th>
                                                     <th>Status Bayar</th>
-                                                    <th>Status Pengerjaan</th>
-                                                    <th>Opsi</th>
                                                 </tr>
                                             </thead>
                                             <?php
                                             $no = 1;
                                             $data = $koneksi->query("SELECT * FROM pemesanan AS p
                                             LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
-                                            LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog
-                                            ORDER BY p.id_pemesanan DESC");
+                                            LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog ORDER BY id_pemesanan DESC");
                                             while ($row = $data->fetch_array()) {
                                             ?>
                                                 <tbody style="background-color: azure">
@@ -94,6 +92,7 @@ include '../../templates/head.php';
                                                         <td><?= tgl_indo($row['tanggal_pesan']) ?></td>
                                                         <td><?= $row['nama_pelanggan'] ?></td>
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
+                                                        <td align="right"><?= number_format($row['total_harga'], 0, ',', '.') ?></td>
                                                         <td><a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
                                                         <td align="center"><?= $row['tipe_pembayaran'] ?></td>
                                                         <td align="center">
@@ -102,18 +101,6 @@ include '../../templates/head.php';
                                                             <?php }else{ ?>
                                                                 <span class="badge badge-warning"><?= $row['status_bayar'] ?></span>  
                                                             <?php } ?>
-                                                        </td>
-                                                        <td align="center">
-                                                            <?php if($row['status_pengerjaan'] == "Selesai"){ ?>
-                                                                <span class="badge badge-success"><?= $row['status_pengerjaan'] ?></span>    
-                                                            <?php }elseif($row['status_pengerjaan'] == "Sedang Diproses"){ ?>
-                                                                <span class="badge badge-warning"><?= $row['status_pengerjaan'] ?></span>  
-                                                            <?php }else{ ?>
-                                                                <span class="badge badge-danger"><?= $row['status_pengerjaan'] ?></span>  
-                                                            <?php } ?>
-                                                        </td>
-                                                        <td align="center">
-                                                            <a href="edit?id=<?= $row['id_pemesanan'] ?>" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit"></i> Kerjakan</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -134,6 +121,7 @@ include '../../templates/head.php';
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
+
 
         <!-- MODAL FILTER CETAK -->
         <div class="modal fade" id="modal-cetak">
@@ -175,12 +163,11 @@ include '../../templates/head.php';
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Status Pengerjaan</label>
-                            <select name="status_pengerjaan" class="form-control" required>
-                                <option value="" selected disabled>--Pilih Status Pengerjaan--</option>
-                                <option value="Belum Diproses">Belum Diproses</option>
-                                <option value="Sedang Diproses">Sedang Diproses</option>
-                                <option value="Selesai">Selesai</option>
+                            <label>Status Bayar</label>
+                            <select name="status_bayar" class="form-control" required>
+                                <option value="" selected disabled>--Pilih Status Bayar--</option>
+                                <option value="Belum Dibayar">Belum Dibayar</option>
+                                <option value="Sudah Dibayar">Sudah Dibayar</option>
                             </select>
                         </div>
                    </div>

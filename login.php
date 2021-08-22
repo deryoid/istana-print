@@ -41,8 +41,8 @@ require 'config/config.php';
       <div class="card-body login-card-body">
         <!-- <p class="login-box-msg">Sign in to start your session</p> -->
         <?php if (isset($_SESSION['pesan']) && $_SESSION['pesan'] <> '') { ?>
-          <div class="alert alert-danger success-alert" role="alert">
-            <small><i class="fa fa-check"> <?= $_SESSION['pesan']; ?></i></small>
+          <div class="alert alert-warning success-alert" role="alert">
+            <small><i class="fa fa-exclamation-triangle"> <?= $_SESSION['pesan']; ?></i></small>
           </div>
         <?php $_SESSION['pesan'] = '';
         } ?>
@@ -133,14 +133,14 @@ if (isset($_POST['login'])) {
 
     if ($role == "Super Admin") {
       echo "<script>window.location.replace('admin/');</script>";
-    } elseif ($role == "Kepala") {
-      echo "<script>window.location.replace('kepala/');</script>";
+    } elseif ($role == "Pimpinan") {
+      echo "<script>window.location.replace('pimpinan/');</script>";
     } elseif ($role == "User") {
       echo "<script>window.location.replace('user/');</script>";
-  } else {
+    }
+}else{
     $_SESSION['pesan'] = 'Username atau Password Tidak Ditemukan';
     echo "<script>window.location.replace('login');</script>";
-  }
 }
 }
 

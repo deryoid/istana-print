@@ -44,15 +44,6 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="<?= base_url('public/pengembalian/tambah') ?>" class="nav-link">
-              <i class="nav-icon fas fa-file-signature"></i>
-              <p>
-                Pelaporan Kerusakan
-              </p>
-            </a>
-          </li>
-
 
         </ul>
       </nav>

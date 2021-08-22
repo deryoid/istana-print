@@ -44,7 +44,6 @@ $bln = array(
     <hr size="2px" color="black">
   </b></p>
 
-  Filter : <?= $bln[$_POST['bulan']].'/'.$_POST['tahun'].'/'.$_POST['status_pengerjaan'] ?> <br>
   Cetak : <?= $_SESSION['username'] ?>
   <div style="float: right;">
     Tanggal Cetak :
@@ -53,49 +52,57 @@ $bln = array(
   </div>
 
   <br>
-  <h3 style="text-align: center;">Laporan Daftar Riwayat Pengerjaan</h3>
-  
+  <div style="text-align: center; font-size: 18;">
+        Laporan Daftar Staff Karyawan
+  </div>
+  <br>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
                 <table border="1" cellspacing="0" width="100%">
                     <thead>
                         <tr align="center">
                             <th>No</th>
-                            <th>Tanggal Pesananan</th>
-                            <th>Nama Pelanggan</th>
-                            <th>Nama Produk</th>
-                            <th>Jenis</th>
-                            <th>Ukuran</th>
-                            <th>Harga(Rp)</th>
-                            <th>Harga Desain(Rp)</th>
-                            <th>Total</th>
-                            <th>Status Bayar</th>
-                            <th>Status Pengerjaan</th>
+                            <th>Nama Karyawan</th>
+                            <th>Jenis Kelamin</th>
+                            <th>TTL</th>
+                            <th>Agama</th>
+                            <th>Pendidikan</th>
+                            <th>Jurusan</th>
+                            <th>Alamat</th>
+                            <th>Hp</th>
+                            <th>Bidang</th>
+                            <th>Jabatan</th>
                         </tr>
                     </thead>
 
                     <tbody>
                     <?php
                         $no = 1;
-                        $data = $koneksi->query("SELECT * FROM pemesanan AS p
-                        LEFT JOIN pelanggan AS pl ON p.id_pelanggan = pl.id_pelanggan
-                        LEFT JOIN katalog AS k ON p.id_katalog = k.id_katalog WHERE MONTH(tanggal_pesan) = '$_POST[bulan]' AND YEAR(tanggal_pesan) = '$_POST[tahun]' AND status_pengerjaan = '$_POST[status_pengerjaan]'");
+                        $data = $koneksi->query("SELECT * FROM karyawan");
                         while ($row = $data->fetch_array()) {
                     ?>
                         <tr align="center">
-                            <td align="center"><?= $no++ ?></td>
-                            <td><?= tgl_indo($row['tanggal_pesan']) ?></td>
-                            <td><?= $row['nama_pelanggan'] ?></td>
-                            <td><?= $row['nama_katalog'] ?></td>
-                            <td><?= $row['jenis_katalog'] ?></td>
-                            <td><?= $row['ukuran'] ?></td>
-                            <td align="right"><?= number_format($row['harga'], 0,',','.') ?></td>
-                            <td align="right"><?= number_format($row['harga_desain'], 0,',','.') ?></td>
-                            <td align="right"><?= number_format($row['total_harga'], 0, ',','.') ?></td>
-                            <td align="center"><?= $row['status_bayar'] ?></td>
-                            <td align="center"><?= $row['status_pengerjaan'] ?></td>
+                            <td><?= $no++ ?></td>
+                            <td align="left"><?= $row['nama_karyawan'] ?></td>
+                            <td><?= $row['jk'] ?></td>
+                            <td align="left"><?= $row['tempat_lahir'].', '.tgl_indo($row['tgl_lahir']) ?></td>
+                            <td><?= $row['agama'] ?></td>
+                            <td><?= $row['pendidikan'] ?></td>
+                            <td><?= $row['jurusan'] ?></td>
+                            <td align="left"><?= $row['alamat'] ?></td>
+                            <td><?= $row['hp'] ?></td>
+                            <td><?= $row['bidang'] ?></td>
+                            <td><?= $row['jabatan'] ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>
                 </table>
+
+            </div>
+        </div>
+    </div>
     <br>
 
     </div>

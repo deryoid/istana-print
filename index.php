@@ -66,11 +66,6 @@ include 'templates_public/head.php';
                           <td><?= $row['jenis_katalog'] ?></td>
                         </tr>
                         <tr>
-                          <td><li>Qty</li></td>
-                          <td width="30%" align="center">:</td>
-                          <td><?= $row['qty'] ?></td>
-                        </tr>
-                        <tr>
                           <td><li>Ukuran</li></td>
                           <td width="30%" align="center">:</td>
                           <td><?= $row['ukuran'] ?></td>
