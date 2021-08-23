@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 21/08/2021 20:36:44
+ Date: 23/08/2021 18:47:35
 */
 
 SET NAMES utf8mb4;
@@ -88,6 +88,10 @@ CREATE TABLE `pelanggan`  (
 -- ----------------------------
 INSERT INTO `pelanggan` VALUES ('PLG001', 'Fawazzz', 'Laki-laki', 'Banjarmasin', '769868596769');
 INSERT INTO `pelanggan` VALUES ('PLG002', 'Dery', 'Laki-laki', 'Komplek Smanda 2 Banjarmasin', '092957459879');
+INSERT INTO `pelanggan` VALUES ('PLG003', 'Fawazzz', 'Laki-laki', 'Jl. Pramuka', '097875658876');
+INSERT INTO `pelanggan` VALUES ('PLG004', 'Fawazzz', 'Laki-laki', 'Banjarmasin', '09098');
+INSERT INTO `pelanggan` VALUES ('PLG005', 'adf', 'Laki-laki', 'khb', '087098');
+INSERT INTO `pelanggan` VALUES ('PLG006', 'Fawazzz', 'Laki-laki', 'kjb', '9898');
 
 -- ----------------------------
 -- Table structure for pemesanan
@@ -103,15 +107,16 @@ CREATE TABLE `pemesanan`  (
   `status_bayar` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `status_pengerjaan` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `status_pengambilan` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `bukti_transfer` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_pemesanan`) USING BTREE,
   INDEX `id_katalog`(`id_katalog`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pemesanan
 -- ----------------------------
-INSERT INTO `pemesanan` VALUES (1, '2021-08-20', 'PLG001', 1, '96093.jpg', 'Transfer', 'Sudah Dibayar', 'Selesai', 'Belum Diambil');
-INSERT INTO `pemesanan` VALUES (2, '2021-08-20', 'PLG002', 4, '95297.jpg', 'Cash', 'Sudah Dibayar', 'Selesai', 'Sudah Diambil');
+INSERT INTO `pemesanan` VALUES (9, '2021-08-23', 'PLG002', 1, '7664.jpg', 'Cash', 'Sudah Dibayar', NULL, NULL, '');
+INSERT INTO `pemesanan` VALUES (10, '2021-08-23', 'PLG001', 2, '95199.jpg', 'Transfer', 'Sudah Dibayar', NULL, NULL, '12967.jpg');
 
 -- ----------------------------
 -- Table structure for produk_gagal
@@ -123,12 +128,11 @@ CREATE TABLE `produk_gagal`  (
   `id_pemesanan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `keterangan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`id_pg`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of produk_gagal
 -- ----------------------------
-INSERT INTO `produk_gagal` VALUES (2, '2021-08-21', '1', 'hasil cetak rusak akan dicetak ulang');
 
 -- ----------------------------
 -- Table structure for user
@@ -140,11 +144,12 @@ CREATE TABLE `user`  (
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id_user`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Super Admin');
+INSERT INTO `user` VALUES (2, 'pimpinan', '90973652b88fe07d05a4304f0a945de8', 'Pimpinan');
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -1,7 +1,7 @@
 <?php 
 	function base_url($url = null){
-		// $base_url = "http://localhost/istana-print";
-		$base_url = "http://istana-print.test";
+		$base_url = "http://localhost/istana-print";
+		// $base_url = "http://istana-print.test";
 		if ($url != null) {
 			return $base_url."/".$url;
 		}else{

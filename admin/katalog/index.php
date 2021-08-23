@@ -73,7 +73,7 @@ include '../../templates/head.php';
                                                     <th>No</th>
                                                     <th>Nama Produk</th>
                                                     <th>Jenis Produk</th>
-                                                    <th>Qty</th>
+                                                    <!-- <th>Qty</th> -->
                                                     <th>Ukuran</th>
                                                     <th>Harga</th>
                                                     <th>Harga Design</th>
@@ -92,7 +92,7 @@ include '../../templates/head.php';
                                                         <td align="center"><?= $no++ ?></td>
                                                         <td><?= $row['nama_katalog'] ?></td>
                                                         <td><?= $row['jenis_katalog'] ?></td>
-                                                        <td><?= $row['qty'] ?></td>
+                                                        <!-- <td><?= $row['qty'] ?></td> -->
                                                         <td><?= $row['ukuran'] ?></td>
                                                         <td><?= $row['harga'] ?></td>
                                                         <td><?= $row['harga_desain'] ?></td>

@@ -68,7 +68,6 @@ $bln = array(
                             <th>Harga Desain(Rp)</th>
                             <th>Total</th>
                             <th>Tipe Pembayaran</th>
-                            <th>Status Bayar</th>
                         </tr>
                     </thead>
 
@@ -91,7 +90,6 @@ $bln = array(
                             <td align="right"><?= number_format($row['harga_desain'], 0,',','.') ?></td>
                             <td align="right"><?= number_format($row['total_harga'], 0, ',','.') ?></td>
                             <td align="center"><?= $row['tipe_pembayaran'] ?></td>
-                            <td align="center"><?= $row['status_bayar'] ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>

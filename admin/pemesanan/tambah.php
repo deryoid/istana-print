@@ -104,11 +104,24 @@ include '../../templates/head.php';
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Tipe Pembayaran</label>
                                             <div class="col-sm-10">
-                                                <select name="tipe_pembayaran" class="form-control" required>
+                                                <select name="tipe_pembayaran" id="tipe_pembayaran" class="form-control" required>
                                                     <option value="" selected disabled>--Pilih--</option>
                                                     <option value="Cash">Cash</option>
                                                     <option value="Transfer">Transfer</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" id="no_rek" style="display: none;">
+                                            <label class="col-sm-2 col-form-label">No. Rekening</label>
+                                            <div class="col-sm-10">
+                                                BNI : <u>022 008 7050</u> an. Muhammad Jumairi <br>
+                                                Mandiri : <u>031 000 5744 977</u> an. Muhammad Jumairi
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" id="bukti_tf" style="display: none;">
+                                            <label class="col-sm-2 col-form-label">Bukti Transfer</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -157,6 +170,20 @@ include '../../templates/head.php';
 
     <!-- jQuery -->
     <?php include_once "../../templates/script.php"; ?>
+    <script>
+        $("#tipe_pembayaran").change(function(){
+            var tipe = $(this).val();
+            if(tipe == "Transfer"){
+                $("#no_rek").slideDown("fast");
+                $("#bukti_tf").slideDown("fast");
+                $("#bukti_transfer").attr('required', '');
+            }else{
+                $("#no_rek").slideUp("fast");  
+                $("#bukti_tf").slideUp("fast");  
+                $("#bukti_transfer").removeAttr('required');
+            }
+        });
+    </script>
 
 
     <?php
@@ -220,6 +247,59 @@ include '../../templates/head.php';
             }
         }
 
+        if (!empty($_FILES['bukti_transfer']['name'])) {
+                // UPLOAD file PEMOHON
+                $file1      = $_FILES['bukti_transfer']['name'];
+                $x_file1    = explode('.', $file1);
+                $ext_file1  = end($x_file1);
+                $nama_file_bukti = rand(1, 99999) . '.' . $ext_file1;
+                $size_file1 = $_FILES['bukti_transfer']['size'];
+                $tmp_file1  = $_FILES['bukti_transfer']['tmp_name'];
+                $dir_file1  = '../../assets/bukti_transfer/';
+                $allow_ext1        = array('png', 'jpg', 'JPG', 'jpeg', 'zip', 'rar', 'pdf');
+                $allow_size1       = 2048 * 2048 * 1;
+
+                if (in_array($ext_file1, $allow_ext1) === true) {
+                    if ($size_file1 <= $allow_size1) {
+                        move_uploaded_file($tmp_file1, $dir_file1 . $nama_file_bukti);
+                    } else {
+                        echo "
+                    <script type='text/javascript'>
+                    setTimeout(function () {    
+                        swal({
+                            title: '',
+                            text:  'Ukuran File Terlalu Besar, Maksimal 1 Mb',
+                            type: 'warning',
+                            timer: 3000,
+                            showConfirmButton: true
+                        });     
+                    },10);  
+                    window.setTimeout(function(){ 
+                        window.history.back();
+                    } ,2000);   
+                    </script>";
+                    }
+                } else {
+                    echo "
+                <script type='text/javascript'>
+                setTimeout(function () {    
+                    swal({
+                        title: 'Format File Tidak Didukung',
+                        text:  'Format File Harus Berupa PNG,JPG,RAR, ZIP',
+                        type: 'warning',
+                        timer: 3000,
+                        showConfirmButton: true
+                    });     
+                },10);  
+                window.setTimeout(function(){ 
+                    window.history.back();
+                } ,2000);   
+                </script>";
+                }
+            }else{
+                $nama_file_bukti = NULL;
+            }
+
 
         $submit = $koneksi->query("INSERT INTO pemesanan VALUES (
             NULL,
@@ -230,7 +310,8 @@ include '../../templates/head.php';
             '$tipe_pembayaran',
             '$status_bayar',
             NULL,
-            NULL
+            NULL,
+           '$nama_file_bukti'
             )");
 
         if ($submit) {

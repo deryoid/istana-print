@@ -74,12 +74,12 @@ include '../../templates/head.php';
                                             </div>
                                         </div>
                                     
-                                        <div class="form-group row">
+                                        <!-- <div class="form-group row">
                                             <label for="qty" class="col-sm-2 col-form-label">qty</label>
                                             <div class="col-sm-10">
                                                 <input type="number" class="form-control" id="qty" name="qty">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group row">
                                             <label for="ukuran" class="col-sm-2 col-form-label">Ukuran</label>
                                             <div class="col-sm-10">
@@ -152,7 +152,7 @@ include '../../templates/head.php';
     if (isset($_POST['submit'])) {
         $nama_katalog        = $_POST['nama_katalog'];
         $jenis_katalog       = $_POST['jenis_katalog'];
-        $qty                 = $_POST['qty'];
+        // $qty                 = $_POST['qty'];
         $ukuran              = $_POST['ukuran'];
         $harga               = $_POST['harga'];
         $harga_desain        = $_POST['harga_desain'];
@@ -216,7 +216,7 @@ include '../../templates/head.php';
             NULL,
             '$nama_katalog',
             '$jenis_katalog',
-            '$qty',
+            NULL,
             '$ukuran',
             '$harga',
             '$harga_desain',

@@ -76,6 +76,7 @@ include '../../templates/head.php';
                                                     <th>Katalog Dipesan</th>
                                                     <th>Harga Total</th>
                                                     <th>Tipe Pembayaran</th>
+                                                    <th>Bukti Transfer</th>
                                                     <th>File</th>
                                                     <th>Status Bayar</th>
                                                     <th>Opsi</th>
@@ -95,8 +96,13 @@ include '../../templates/head.php';
                                                         <td><?= $row['nama_pelanggan'] ?></td>
                                                         <td><?= $row['nama_katalog'] ?> - Ukuran : <?= $row['ukuran'] ?></td>
                                                         <td align="right"><?= number_format($row['total_harga'], 0, ',', '.') ?></td>
-                                                        <td><a href="<?= base_url(); ?>/filependukung/<?= $row['file']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
                                                         <td align="center"><?= $row['tipe_pembayaran'] ?></td>
+                                                        <td>
+                                                            <?php if($row['bukti_transfer']){ ?>
+                                                                <a href="<?= base_url(); ?>/assets/bukti_transfer/<?= $row['bukti_transfer']?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td><a href="<?= base_url(); ?>/filependukung/<?= $row[4]?>" data-title="file" data-gallery="galery" title="Lihat" target="blank"><i>Lihat File</i></a></td>
                                                         <td align="center">
                                                             <?php if($row['status_bayar'] == "Sudah Dibayar"){ ?>
                                                                 <span class="badge badge-success"><?= $row['status_bayar'] ?></span>    
